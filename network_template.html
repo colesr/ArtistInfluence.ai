@@ -115,8 +115,8 @@
 
     <h2>View</h2>
     <select id="view-mode">
-      <option value="profiled">Profiled artists only (137)</option>
-      <option value="all">Full network (4,973)</option>
+      <option value="profiled" id="opt-profiled">Profiled artists only</option>
+      <option value="all" id="opt-all">Full network</option>
       <option value="ego">Selected artist + neighbors</option>
     </select>
 
@@ -169,6 +169,8 @@ const NETWORK_DATA = __DATA_PLACEHOLDER__;
 document.getElementById('stat-profiled').textContent = NETWORK_DATA.metadata.profiledArtists.toLocaleString();
 document.getElementById('stat-total').textContent = NETWORK_DATA.metadata.totalArtistNodes.toLocaleString();
 document.getElementById('stat-edges').textContent = NETWORK_DATA.metadata.totalInfluenceEdges.toLocaleString();
+document.getElementById('opt-profiled').textContent = `Profiled artists only (${NETWORK_DATA.metadata.profiledArtists.toLocaleString()})`;
+document.getElementById('opt-all').textContent = `Full network (${NETWORK_DATA.metadata.totalArtistNodes.toLocaleString()})`;
 
 const nodeIndex = new Map(NETWORK_DATA.nodes.map(n => [n.id, n]));
 
@@ -361,14 +363,28 @@ function renderDetails(id) {
   const influencedBy = (profile && profile.influencedBy) || [];
   const influenced = (profile && profile.influenced) || [];
 
+  // Normalize an entry into {name, href}. Accepts strings or {name, href} objects.
+  const normalize = (item) => {
+    if (typeof item === 'string') {
+      const ref = nodeIndex.get(item);
+      return { name: item, href: ref && ref.url };
+    }
+    return { name: item.name, href: item.href || (nodeIndex.get(item.name) || {}).url };
+  };
+
   const buildList = (arr) => {
     if (!arr.length) return '<div style="font-size:12px; color:var(--muted); padding:8px;">None recorded.</div>';
-    return '<div class="artist-list">' + arr.map(name => {
+    return '<div class="artist-list">' + arr.map(raw => {
+      const { name, href } = normalize(raw);
       const ref = nodeIndex.get(name);
       const isProf = ref && ref.profiled;
+      const link = href ? `<a class="am-link" href="${escapeAttr(href)}" target="_blank" rel="noopener" title="Open external profile" onclick="event.stopPropagation()">↗</a>` : '';
       return `<div class="item" data-artist="${escapeAttr(name)}">
         <span>${escapeHtml(name)}</span>
-        ${isProf ? '<span class="profiled-tag">PROFILED</span>' : ''}
+        <span style="display:inline-flex; gap:6px; align-items:center;">
+          ${isProf ? '<span class="profiled-tag">PROFILED</span>' : ''}
+          ${link}
+        </span>
       </div>`;
     }).join('') + '</div>';
   };
@@ -378,7 +394,7 @@ function renderDetails(id) {
   let html = `
     <h3>${escapeHtml(id)}</h3>
     <div style="margin-bottom:10px">${inflPill}
-      ${profile && profile.url ? `<a class="am-link" href="${escapeAttr(profile.url)}" target="_blank" rel="noopener">AllMusic ↗</a>` : ''}
+      ${meta.url ? `<a class="am-link" href="${escapeAttr(meta.url)}" target="_blank" rel="noopener">Open profile ↗</a>` : ''}
     </div>
     <div class="stat-grid">
       <div class="stat"><div class="v">${meta.inDeg}</div><div class="l">Influencers</div></div>
@@ -401,7 +417,7 @@ function renderDetails(id) {
     }
     html += `
       <div style="font-size:12px; color:var(--muted); margin:10px 0">
-        This artist isn't fully profiled — only edges to/from profiled artists are known.
+        Influence lists below come from edges to profiled artists.
       </div>
       <h2>Known influencers (${influencers.length})</h2>
       ${buildList(influencers)}

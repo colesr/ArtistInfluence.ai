@@ -1,138 +1,368 @@
-name,influencedBy_count,influenced_count,allmusic_url
-"10cc",10,15,"https://www.allmusic.com/artist/10cc-mn0000502163"
-"A Tribe Called Quest",13,31,"https://www.allmusic.com/artist/a-tribe-called-quest-mn0000478982"
-"Aerosmith",21,40,"https://www.allmusic.com/artist/aerosmith-mn0000604852"
-"Aphex Twin",18,38,"https://www.allmusic.com/artist/aphex-twin-mn0000493848"
-"Arcade Fire",20,13,"https://www.allmusic.com/artist/arcade-fire-mn0000185591"
-"Aretha Franklin",22,55,"https://www.allmusic.com/artist/aretha-franklin-mn0000927555"
-"Arthur Alexander",11,12,"https://www.allmusic.com/artist/arthur-alexander-mn0000931202"
-"B.B. King",16,72,"https://www.allmusic.com/artist/bb-king-mn0000059156"
-"Badfinger",11,15,"https://www.allmusic.com/artist/badfinger-mn0000064303"
-"Bauhaus",12,24,"https://www.allmusic.com/artist/bauhaus-mn0000154998"
-"Beck",29,29,"https://www.allmusic.com/artist/beck-mn0000124492"
-"Bee Gees",16,19,"https://www.allmusic.com/artist/bee-gees-mn0000043714"
-"Belle and Sebastian",27,19,"https://www.allmusic.com/artist/belle-and-sebastian-mn0000153565"
-"Big Star",21,69,"https://www.allmusic.com/artist/big-star-mn0000051992"
-"Bill Haley",10,14,"https://www.allmusic.com/artist/bill-haley-mn0000077870"
-"Billie Eilish",21,3,"https://www.allmusic.com/artist/billie-eilish-mn0003475903"
-"Billy Joel",13,21,"https://www.allmusic.com/artist/billy-joel-mn0000085915"
-"Björk",23,80,"https://www.allmusic.com/artist/bj%C3%B6rk-mn0000769444"
-"Black Sabbath",13,149,"https://www.allmusic.com/artist/black-sabbath-mn0000771438"
-"Blur",24,24,"https://www.allmusic.com/artist/blur-mn0000758444"
-"Bob Dylan",35,129,"https://www.allmusic.com/artist/bob-dylan-mn0000066915"
-"Bob Marley",16,88,"https://www.allmusic.com/artist/bob-marley-mn0000071514"
-"Brian Eno",21,112,"https://www.allmusic.com/artist/brian-eno-mn0000617196"
-"Buck Owens",12,18,"https://www.allmusic.com/artist/buck-owens-mn0000941579"
-"Buddy Holly",13,85,"https://www.allmusic.com/artist/buddy-holly-mn0000538677"
-"Buffalo Springfield",15,18,"https://www.allmusic.com/artist/buffalo-springfield-mn0000939567"
-"Carl Perkins",10,16,"https://www.allmusic.com/artist/carl-perkins-mn0000792953"
-"Cat Stevens",11,21,"https://www.allmusic.com/artist/cat-stevens-mn0000198480"
-"Charlie Parker",13,22,"https://www.allmusic.com/artist/charlie-parker-mn0000211758"
-"Cheap Trick",23,43,"https://www.allmusic.com/artist/cheap-trick-mn0000105354"
-"Chuck Berry",19,84,"https://www.allmusic.com/artist/chuck-berry-mn0000120521"
-"Coldplay",17,54,"https://www.allmusic.com/artist/coldplay-mn0000775877"
-"Cream",16,84,"https://www.allmusic.com/artist/cream-mn0000112462"
-"Crowded House",17,17,"https://www.allmusic.com/artist/crowded-house-mn0000130173"
-"David Bowie",24,183,"https://www.allmusic.com/artist/david-bowie-mn0000531986"
-"Deep Purple",16,67,"https://www.allmusic.com/artist/deep-purple-mn0000192382"
-"Depeche Mode",19,90,"https://www.allmusic.com/artist/depeche-mode-mn0000239921"
-"Dinosaur Jr.",19,38,"https://www.allmusic.com/artist/dinosaur-jr-mn0000219483"
-"Donovan",15,18,"https://www.allmusic.com/artist/donovan-mn0000799053"
-"Echo & the Bunnymen",16,23,"https://www.allmusic.com/artist/echo-the-bunnymen-mn0000145128"
-"Eddie Cochran",7,17,"https://www.allmusic.com/artist/eddie-cochran-mn0000793988"
-"Electric Light Orchestra",16,21,"https://www.allmusic.com/artist/electric-light-orchestra-mn0000163229"
-"Elliott Smith",22,50,"https://www.allmusic.com/artist/elliott-smith-mn0000172167"
-"Elton John",18,34,"https://www.allmusic.com/artist/elton-john-mn0000796734"
-"Elvis Presley",27,109,"https://www.allmusic.com/artist/elvis-presley-mn0000180228"
-"Eminem",26,45,"https://www.allmusic.com/artist/eminem-mn0000157676"
-"Fats Domino",20,23,"https://www.allmusic.com/artist/fats-domino-mn0000137494"
-"Fleetwood Mac",22,57,"https://www.allmusic.com/artist/fleetwood-mac-mn0000182900"
-"Foo Fighters",26,25,"https://www.allmusic.com/artist/foo-fighters-mn0000184043"
-"Gang of Four",10,53,"https://www.allmusic.com/artist/gang-of-four-mn0000193231"
-"Gene Vincent",9,25,"https://www.allmusic.com/artist/gene-vincent-mn0000803720"
-"Genesis",13,18,"https://www.allmusic.com/artist/genesis-mn0000199995"
-"Grateful Dead",36,61,"https://www.allmusic.com/artist/grateful-dead-mn0000988440"
-"Hank Williams",15,144,"https://www.allmusic.com/artist/hank-williams-mn0000549797"
-"Harry Nilsson",13,32,"https://www.allmusic.com/artist/harry-nilsson-mn0000560208"
-"James Brown",18,148,"https://www.allmusic.com/artist/james-brown-mn0000128099"
-"Jay-Z",14,60,"https://www.allmusic.com/artist/jay-z-mn0000224257"
-"Jefferson Airplane",12,20,"https://www.allmusic.com/artist/jefferson-airplane-mn0000840102"
-"Jerry Lee Lewis",18,24,"https://www.allmusic.com/artist/jerry-lee-lewis-mn0000332141"
-"Jimi Hendrix",35,96,"https://www.allmusic.com/artist/jimi-hendrix-mn0000354105"
-"John Coltrane",21,83,"https://www.allmusic.com/artist/john-coltrane-mn0000175553"
-"Johnny Cash",21,78,"https://www.allmusic.com/artist/johnny-cash-mn0000816890"
-"Joy Division",15,65,"https://www.allmusic.com/artist/joy-division-mn0000290812"
-"Kanye West",11,59,"https://www.allmusic.com/artist/kanye-west-mn0000361014"
-"Kendrick Lamar",15,20,"https://www.allmusic.com/artist/kendrick-lamar-mn0002709646"
-"Kraftwerk",10,127,"https://www.allmusic.com/artist/kraftwerk-mn0000104714"
-"Larry Williams",1,1,"https://www.allmusic.com/artist/larry-williams-mn0000135024"
-"LCD Soundsystem",8,12,"https://www.allmusic.com/artist/lcd-soundsystem-mn0000780005"
-"Led Zeppelin",31,116,"https://www.allmusic.com/artist/led-zeppelin-mn0000139026"
-"Little Richard",14,31,"https://www.allmusic.com/artist/little-richard-mn0000824022"
-"Little Willie John",2,11,"https://www.allmusic.com/artist/little-willie-john-mn0000269972"
-"Lonnie Donegan",12,16,"https://www.allmusic.com/artist/lonnie-donegan-mn0000277549"
-"Louis Armstrong",10,78,"https://www.allmusic.com/artist/louis-armstrong-mn0000234518"
-"Marvin Gaye",19,106,"https://www.allmusic.com/artist/marvin-gaye-mn0000316834"
-"Massive Attack",14,28,"https://www.allmusic.com/artist/massive-attack-mn0000378288"
-"Metallica",29,88,"https://www.allmusic.com/artist/metallica-mn0000446509"
-"Michael Jackson",22,144,"https://www.allmusic.com/artist/michael-jackson-mn0000467203"
-"Miles Davis",22,72,"https://www.allmusic.com/artist/miles-davis-mn0000423829"
-"Muddy Waters",19,73,"https://www.allmusic.com/artist/muddy-waters-mn0000608701"
-"My Bloody Valentine",20,133,"https://www.allmusic.com/artist/my-bloody-valentine-mn0000937003"
-"Neil Young",26,114,"https://www.allmusic.com/artist/neil-young-mn0000379125"
-"New Order",16,58,"https://www.allmusic.com/artist/new-order-mn0000334193"
-"Nirvana",30,104,"https://www.allmusic.com/artist/nirvana-mn0000357406"
-"Oasis",17,31,"https://www.allmusic.com/artist/oasis-mn0000393345"
-"Otis Redding",15,67,"https://www.allmusic.com/artist/otis-redding-mn0000414251"
-"Parliament",12,81,"https://www.allmusic.com/artist/parliament-mn0000129775"
-"Patti Smith",12,24,"https://www.allmusic.com/artist/patti-smith-mn0000747445"
-"Pavement",29,60,"https://www.allmusic.com/artist/pavement-mn0000752314"
-"Phil Spector",6,11,"https://www.allmusic.com/artist/phil-spector-mn0000694967"
-"Pink Floyd",20,163,"https://www.allmusic.com/artist/pink-floyd-mn0000346336"
-"Pixies",29,86,"https://www.allmusic.com/artist/pixies-mn0000895136"
-"Prince",28,96,"https://www.allmusic.com/artist/prince-mn0000361393"
-"Public Enemy",21,42,"https://www.allmusic.com/artist/public-enemy-mn0000856785"
-"Radiohead",24,61,"https://www.allmusic.com/artist/radiohead-mn0000326249"
-"Ramones",32,84,"https://www.allmusic.com/artist/ramones-mn0000490004"
-"Ravi Shankar",1,11,"https://www.allmusic.com/artist/ravi-shankar-mn0000404463"
-"Ray Charles",18,114,"https://www.allmusic.com/artist/ray-charles-mn0000046861"
-"Robert Johnson",11,18,"https://www.allmusic.com/artist/robert-johnson-mn0000832288"
-"Roy Orbison",8,55,"https://www.allmusic.com/artist/roy-orbison-mn0000852007"
-"Run-D.M.C.",7,60,"https://www.allmusic.com/artist/run-dmc-mn0000358408"
-"Sam Cooke",10,64,"https://www.allmusic.com/artist/sam-cooke-mn0000238115"
-"Sex Pistols",24,119,"https://www.allmusic.com/artist/sex-pistols-mn0000418740"
-"Siouxsie and the Banshees",14,26,"https://www.allmusic.com/artist/siouxsie-and-the-banshees-mn0000748222"
-"Smokey Robinson",11,23,"https://www.allmusic.com/artist/smokey-robinson-mn0000821571"
-"Sonic Youth",36,162,"https://www.allmusic.com/artist/sonic-youth-mn0000755156"
-"Stevie Wonder",12,143,"https://www.allmusic.com/artist/stevie-wonder-mn0000622805"
-"Talking Heads",19,81,"https://www.allmusic.com/artist/talking-heads-mn0000131650"
-"Television",12,19,"https://www.allmusic.com/artist/television-mn0000019701"
-"The Beatles",25,276,"https://www.allmusic.com/artist/the-beatles-mn0000754032"
-"The Byrds",16,75,"https://www.allmusic.com/artist/the-byrds-mn0000631774"
-"The Clash",28,83,"https://www.allmusic.com/artist/the-clash-mn0000075747"
-"The Cure",18,85,"https://www.allmusic.com/artist/the-cure-mn0000137390"
-"The Everly Brothers",15,19,"https://www.allmusic.com/artist/the-everly-brothers-mn0000046699"
-"The Isley Brothers",10,17,"https://www.allmusic.com/artist/the-isley-brothers-mn0000766893"
-"The Kinks",17,113,"https://www.allmusic.com/artist/the-kinks-mn0000100160"
-"The Marvelettes",6,7,"https://www.allmusic.com/artist/the-marvelettes-mn0000376608"
-"The Monkees",15,13,"https://www.allmusic.com/artist/the-monkees-mn0000478603"
-"The Moody Blues",10,15,"https://www.allmusic.com/artist/the-moody-blues-mn0000404434"
-"The Police",14,28,"https://www.allmusic.com/artist/the-police-mn0000413524"
-"The Replacements",27,58,"https://www.allmusic.com/artist/the-replacements-mn0000422405"
-"The Rolling Stones",27,107,"https://www.allmusic.com/artist/the-rolling-stones-mn0000894465"
-"The Shadows",17,17,"https://www.allmusic.com/artist/the-shadows-mn0000496405"
-"The Shirelles",10,12,"https://www.allmusic.com/artist/the-shirelles-mn0000418981"
-"The Smiths",22,85,"https://www.allmusic.com/artist/the-smiths-mn0000899530"
-"The Strokes",16,27,"https://www.allmusic.com/artist/the-strokes-mn0000568137"
-"The Velvet Underground",11,136,"https://www.allmusic.com/artist/the-velvet-underground-mn0000840402"
-"The White Stripes",21,17,"https://www.allmusic.com/artist/the-white-stripes-mn0000921710"
-"The Zombies",20,74,"https://www.allmusic.com/artist/the-zombies-mn0000582313"
-"Thelonious Monk",14,79,"https://www.allmusic.com/artist/thelonious-monk-mn0000490416"
-"Todd Rundgren",19,24,"https://www.allmusic.com/artist/todd-rundgren-mn0000936425"
-"Traffic",15,17,"https://www.allmusic.com/artist/traffic-mn0000012472"
-"Turin Brakes",4,0,"https://www.allmusic.com/artist/genesis-mn0000205668"
-"U2",21,62,"https://www.allmusic.com/artist/u2-mn0000219203"
-"Vampire Weekend",18,14,"https://www.allmusic.com/artist/vampire-weekend-mn0000662416"
-"Weezer",30,57,"https://www.allmusic.com/artist/weezer-mn0000243008"
-"Wire",18,77,"https://www.allmusic.com/artist/wire-mn0000672910"
-"Yes",15,22,"https://www.allmusic.com/artist/yes-mn0000685647"
+name,url,influencedByCount,influencedCount
+The Beatles,https://www.allmusic.com/artist/the-beatles-mn0000754032,25,276
+Buddy Holly,https://www.allmusic.com/artist/buddy-holly-mn0000538677,13,85
+Carl Perkins,https://www.allmusic.com/artist/carl-perkins-mn0000792953,10,16
+Chuck Berry,https://www.allmusic.com/artist/chuck-berry-mn0000120521,19,84
+Elvis Presley,https://www.allmusic.com/artist/elvis-presley-mn0000180228,27,109
+Fats Domino,https://www.allmusic.com/artist/fats-domino-mn0000137494,20,23
+Gene Vincent,https://www.allmusic.com/artist/gene-vincent-mn0000803720,9,25
+Little Richard,https://www.allmusic.com/artist/little-richard-mn0000824022,14,31
+Phil Spector,https://www.allmusic.com/artist/phil-spector-mn0000694967,6,11
+Lonnie Donegan,https://www.allmusic.com/artist/lonnie-donegan-mn0000277549,12,16
+Ravi Shankar,https://www.allmusic.com/artist/ravi-shankar-mn0000404463,1,11
+Roy Orbison,https://www.allmusic.com/artist/roy-orbison-mn0000852007,8,55
+The Everly Brothers,https://www.allmusic.com/artist/the-everly-brothers-mn0000046699,15,19
+The Isley Brothers,https://www.allmusic.com/artist/the-isley-brothers-mn0000766893,10,17
+Arthur Alexander,https://www.allmusic.com/artist/arthur-alexander-mn0000931202,11,12
+Eddie Cochran,https://www.allmusic.com/artist/eddie-cochran-mn0000793988,7,17
+Larry Williams,https://www.allmusic.com/artist/larry-williams-mn0000135024,1,1
+Smokey Robinson,https://www.allmusic.com/artist/smokey-robinson-mn0000821571,11,23
+Bob Dylan,https://www.allmusic.com/artist/bob-dylan-mn0000066915,35,129
+The Shirelles,https://www.allmusic.com/artist/the-shirelles-mn0000418981,10,12
+Little Willie John,https://www.allmusic.com/artist/little-willie-john-mn0000269972,2,11
+The Marvelettes,https://www.allmusic.com/artist/the-marvelettes-mn0000376608,6,7
+The Shadows,https://www.allmusic.com/artist/the-shadows-mn0000496405,17,17
+Bill Haley,https://www.allmusic.com/artist/bill-haley-mn0000077870,10,14
+Buck Owens,https://www.allmusic.com/artist/buck-owens-mn0000941579,12,18
+Jerry Lee Lewis,https://www.allmusic.com/artist/jerry-lee-lewis-mn0000332141,18,24
+10cc,https://www.allmusic.com/artist/10cc-mn0000502163,10,15
+Badfinger,https://www.allmusic.com/artist/badfinger-mn0000064303,11,15
+Bee Gees,https://www.allmusic.com/artist/bee-gees-mn0000043714,16,19
+Cheap Trick,https://www.allmusic.com/artist/cheap-trick-mn0000105354,23,43
+David Bowie,https://www.allmusic.com/artist/david-bowie-mn0000531986,24,183
+Donovan,https://www.allmusic.com/artist/donovan-mn0000799053,15,18
+Electric Light Orchestra,https://www.allmusic.com/artist/electric-light-orchestra-mn0000163229,16,21
+Harry Nilsson,https://www.allmusic.com/artist/harry-nilsson-mn0000560208,13,32
+Oasis,https://www.allmusic.com/artist/oasis-mn0000393345,17,31
+The Byrds,https://www.allmusic.com/artist/the-byrds-mn0000631774,16,75
+The Monkees,https://www.allmusic.com/artist/the-monkees-mn0000478603,15,13
+The Zombies,https://www.allmusic.com/artist/the-zombies-mn0000582313,20,74
+Aerosmith,https://www.allmusic.com/artist/aerosmith-mn0000604852,21,40
+Big Star,https://www.allmusic.com/artist/big-star-mn0000051992,21,69
+Cream,https://www.allmusic.com/artist/cream-mn0000112462,16,84
+The Moody Blues,https://www.allmusic.com/artist/the-moody-blues-mn0000404434,10,15
+Todd Rundgren,https://www.allmusic.com/artist/todd-rundgren-mn0000936425,19,24
+Elton John,https://www.allmusic.com/artist/elton-john-mn0000796734,18,34
+Turin Brakes,https://www.allmusic.com/artist/genesis-mn0000205668,4,0
+Foo Fighters,https://www.allmusic.com/artist/foo-fighters-mn0000184043,26,25
+Billy Joel,https://www.allmusic.com/artist/billy-joel-mn0000085915,13,21
+Cat Stevens,https://www.allmusic.com/artist/cat-stevens-mn0000198480,11,21
+Crowded House,https://www.allmusic.com/artist/crowded-house-mn0000130173,17,17
+Genesis,https://www.allmusic.com/artist/genesis-mn0000199995,13,18
+Jimi Hendrix,https://www.allmusic.com/artist/jimi-hendrix-mn0000354105,35,96
+Jefferson Airplane,https://www.allmusic.com/artist/jefferson-airplane-mn0000840102,12,20
+Yes,https://www.allmusic.com/artist/yes-mn0000685647,15,22
+Blur,https://www.allmusic.com/artist/blur-mn0000758444,24,24
+Coldplay,https://www.allmusic.com/artist/coldplay-mn0000775877,17,54
+Buffalo Springfield,https://www.allmusic.com/artist/buffalo-springfield-mn0000939567,15,18
+Elliott Smith,https://www.allmusic.com/artist/elliott-smith-mn0000172167,22,50
+The Police,https://www.allmusic.com/artist/the-police-mn0000413524,14,28
+The Replacements,https://www.allmusic.com/artist/the-replacements-mn0000422405,27,58
+U2,https://www.allmusic.com/artist/u2-mn0000219203,21,62
+Grateful Dead,https://www.allmusic.com/artist/grateful-dead-mn0000988440,36,61
+Weezer,https://www.allmusic.com/artist/weezer-mn0000243008,30,57
+Billie Eilish,https://www.allmusic.com/artist/billie-eilish-mn0003475903,21,3
+Traffic,https://www.allmusic.com/artist/traffic-mn0000012472,15,17
+Belle and Sebastian,https://www.allmusic.com/artist/belle-and-sebastian-mn0000153565,27,19
+Led Zeppelin,https://www.allmusic.com/artist/led-zeppelin-mn0000139026,31,116
+Pink Floyd,https://www.allmusic.com/artist/pink-floyd-mn0000346336,20,163
+The Rolling Stones,https://www.allmusic.com/artist/the-rolling-stones-mn0000894465,27,107
+The Velvet Underground,https://www.allmusic.com/artist/the-velvet-underground-mn0000840402,11,136
+Talking Heads,https://www.allmusic.com/artist/talking-heads-mn0000131650,19,81
+Ramones,https://www.allmusic.com/artist/ramones-mn0000490004,32,84
+The Clash,https://www.allmusic.com/artist/the-clash-mn0000075747,28,83
+Joy Division,https://www.allmusic.com/artist/joy-division-mn0000290812,15,65
+The Smiths,https://www.allmusic.com/artist/the-smiths-mn0000899530,22,85
+New Order,https://www.allmusic.com/artist/new-order-mn0000334193,16,58
+Depeche Mode,https://www.allmusic.com/artist/depeche-mode-mn0000239921,19,90
+Nirvana,https://www.allmusic.com/artist/nirvana-mn0000357406,30,104
+Radiohead,https://www.allmusic.com/artist/radiohead-mn0000326249,24,61
+Sonic Youth,https://www.allmusic.com/artist/sonic-youth-mn0000755156,36,162
+Kraftwerk,https://www.allmusic.com/artist/kraftwerk-mn0000104714,10,127
+Miles Davis,https://www.allmusic.com/artist/miles-davis-mn0000423829,22,72
+James Brown,https://www.allmusic.com/artist/james-brown-mn0000128099,18,148
+Marvin Gaye,https://www.allmusic.com/artist/marvin-gaye-mn0000316834,19,106
+Michael Jackson,https://www.allmusic.com/artist/michael-jackson-mn0000467203,22,144
+Prince,https://www.allmusic.com/artist/prince-mn0000361393,28,96
+Black Sabbath,https://www.allmusic.com/artist/black-sabbath-mn0000771438,13,149
+Metallica,https://www.allmusic.com/artist/metallica-mn0000446509,29,88
+Bob Marley,https://www.allmusic.com/artist/bob-marley-mn0000071514,16,88
+Neil Young,https://www.allmusic.com/artist/neil-young-mn0000379125,26,114
+Fleetwood Mac,https://www.allmusic.com/artist/fleetwood-mac-mn0000182900,22,57
+Muddy Waters,https://www.allmusic.com/artist/muddy-waters-mn0000608701,19,73
+Ray Charles,https://www.allmusic.com/artist/ray-charles-mn0000046861,18,114
+Stevie Wonder,https://www.allmusic.com/artist/stevie-wonder-mn0000622805,12,143
+Deep Purple,https://www.allmusic.com/artist/deep-purple-mn0000192382,16,67
+Robert Johnson,https://www.allmusic.com/artist/robert-johnson-mn0000832288,11,18
+The Kinks,https://www.allmusic.com/artist/the-kinks-mn0000100160,17,113
+Television,https://www.allmusic.com/artist/television-mn0000019701,12,19
+Patti Smith,https://www.allmusic.com/artist/patti-smith-mn0000747445,12,24
+Sex Pistols,https://www.allmusic.com/artist/sex-pistols-mn0000418740,24,119
+Bauhaus,https://www.allmusic.com/artist/bauhaus-mn0000154998,12,24
+The Cure,https://www.allmusic.com/artist/the-cure-mn0000137390,18,85
+Siouxsie and the Banshees,https://www.allmusic.com/artist/siouxsie-and-the-banshees-mn0000748222,14,26
+Pixies,https://www.allmusic.com/artist/pixies-mn0000895136,29,86
+Pavement,https://www.allmusic.com/artist/pavement-mn0000752314,29,60
+Björk,https://www.allmusic.com/artist/bj%C3%B6rk-mn0000769444,23,80
+Brian Eno,https://www.allmusic.com/artist/brian-eno-mn0000617196,21,112
+B.B. King,https://www.allmusic.com/artist/bb-king-mn0000059156,16,72
+Wire,https://www.allmusic.com/artist/wire-mn0000672910,18,77
+Dinosaur Jr.,https://www.allmusic.com/artist/dinosaur-jr-mn0000219483,19,38
+Run-D.M.C.,https://www.allmusic.com/artist/run-dmc-mn0000358408,7,60
+Kendrick Lamar,https://www.allmusic.com/artist/kendrick-lamar-mn0002709646,15,20
+John Coltrane,https://www.allmusic.com/artist/john-coltrane-mn0000175553,21,83
+Louis Armstrong,https://www.allmusic.com/artist/louis-armstrong-mn0000234518,10,78
+Johnny Cash,https://www.allmusic.com/artist/johnny-cash-mn0000816890,21,78
+Hank Williams,https://www.allmusic.com/artist/hank-williams-mn0000549797,15,144
+Arcade Fire,https://www.allmusic.com/artist/arcade-fire-mn0000185591,20,13
+The Strokes,https://www.allmusic.com/artist/the-strokes-mn0000568137,16,27
+LCD Soundsystem,https://www.allmusic.com/artist/lcd-soundsystem-mn0000780005,8,12
+Vampire Weekend,https://www.allmusic.com/artist/vampire-weekend-mn0000662416,18,14
+Echo & the Bunnymen,https://www.allmusic.com/artist/echo-the-bunnymen-mn0000145128,16,23
+Massive Attack,https://www.allmusic.com/artist/massive-attack-mn0000378288,14,28
+Aphex Twin,https://www.allmusic.com/artist/aphex-twin-mn0000493848,18,38
+Public Enemy,https://www.allmusic.com/artist/public-enemy-mn0000856785,21,42
+A Tribe Called Quest,https://www.allmusic.com/artist/a-tribe-called-quest-mn0000478982,13,31
+My Bloody Valentine,https://www.allmusic.com/artist/my-bloody-valentine-mn0000937003,20,133
+Beck,https://www.allmusic.com/artist/beck-mn0000124492,29,29
+The White Stripes,https://www.allmusic.com/artist/the-white-stripes-mn0000921710,21,17
+Kanye West,https://www.allmusic.com/artist/kanye-west-mn0000361014,11,59
+Eminem,https://www.allmusic.com/artist/eminem-mn0000157676,26,45
+Sam Cooke,https://www.allmusic.com/artist/sam-cooke-mn0000238115,10,64
+Otis Redding,https://www.allmusic.com/artist/otis-redding-mn0000414251,15,67
+Parliament,https://www.allmusic.com/artist/parliament-mn0000129775,12,81
+Aretha Franklin,https://www.allmusic.com/artist/aretha-franklin-mn0000927555,22,55
+Gang of Four,https://www.allmusic.com/artist/gang-of-four-mn0000193231,10,53
+Jay-Z,https://www.allmusic.com/artist/jay-z-mn0000224257,14,60
+Charlie Parker,https://www.allmusic.com/artist/charlie-parker-mn0000211758,13,22
+Thelonious Monk,https://www.allmusic.com/artist/thelonious-monk-mn0000490416,14,79
+The Rutles,https://www.allmusic.com/artist/the-rutles-mn0000897214,1,0
+Boston,https://www.allmusic.com/artist/boston-mn0000079960,18,13
+Caleb Nichols,https://www.allmusic.com/artist/caleb-nichols-mn0001635949,2,0
+Carpenters,https://www.allmusic.com/artist/carpenters-mn0000051909,16,11
+Colin Scot,https://www.allmusic.com/artist/colin-scot-mn0000536443,2,0
+Dwight Twilley,https://www.allmusic.com/artist/dwight-twilley-mn0000161572,10,9
+Emitt Rhodes,https://www.allmusic.com/artist/emitt-rhodes-mn0000800926,10,10
+Flamin' Groovies,https://www.allmusic.com/artist/flamin-groovies-mn0000180263,13,12
+HAIM,https://www.allmusic.com/artist/haim-mn0003051113,8,0
+Jeff Lynne,https://www.allmusic.com/artist/jeff-lynne-mn0000228266,9,10
+Jellyfish,https://www.allmusic.com/artist/jellyfish-mn0000319021,17,15
+Jonathan Richman,https://www.allmusic.com/artist/jonathan-richman-mn0000266255,15,20
+Judy Collins,https://www.allmusic.com/artist/judy-collins-mn0000294923,26,19
+Love,https://www.allmusic.com/artist/love-mn0000314600,7,18
+Matthew Sweet,https://www.allmusic.com/artist/matthew-sweet-mn0000387530,25,8
+Moby Grape,https://www.allmusic.com/artist/moby-grape-mn0000569914,12,14
+Peter & Gordon,https://www.allmusic.com/artist/peter-gordon-mn0000264860,4,1
+Peter Frampton,https://www.allmusic.com/artist/peter-frampton-mn0000320845,17,10
+Raphael Saadiq,https://www.allmusic.com/artist/raphael-saadiq-mn0000402249,15,29
+Rick Springfield,https://www.allmusic.com/artist/rick-springfield-mn0000359613,14,10
+Robyn Hitchcock,https://www.allmusic.com/artist/robyn-hitchcock-mn0000832524,20,16
+Simon & Garfunkel,https://www.allmusic.com/artist/simon-garfunkel-mn0000038936,15,17
+Sonny & Cher,https://www.allmusic.com/artist/sonny-cher-mn0000042993,11,5
+Squeeze,https://www.allmusic.com/artist/squeeze-mn0000790732,16,18
+Syd Barrett,https://www.allmusic.com/artist/syd-barrett-mn0000044874,15,24
+T. Rex,https://www.allmusic.com/artist/t-rex-mn0000005882,12,58
+The Association,https://www.allmusic.com/artist/the-association-mn0000753963,11,6
+The Beau Brummels,https://www.allmusic.com/artist/the-beau-brummels-mn0000135032,9,15
+The Cars,https://www.allmusic.com/artist/the-cars-mn0000061172,26,18
+The dB's,https://www.allmusic.com/artist/the-dbs-mn0000489209,18,15
+The Dukes of Stratosphear,https://www.allmusic.com/artist/the-dukes-of-stratosphear-mn0000142963,8,0
+The Jam,https://www.allmusic.com/artist/the-jam-mn0000084053,20,47
+The Knack,https://www.allmusic.com/artist/the-knack-mn0000087179,15,10
+The La's,https://www.allmusic.com/artist/the-las-mn0000104455,14,16
+The Left Banke,https://www.allmusic.com/artist/the-left-banke-mn0000771010,9,19
+The London Souls,https://www.allmusic.com/artist/the-london-souls-mn0000993916,4,0
+The Lovin' Spoonful,https://www.allmusic.com/artist/the-lovin-spoonful-mn0000052900,14,13
+The Mamas & the Papas,https://www.allmusic.com/artist/the-mamas-the-papas-mn0000059293,14,13
+The Move,https://www.allmusic.com/artist/the-move-mn0000483587,16,16
+The Raspberries,https://www.allmusic.com/artist/the-raspberries-mn0000416245,11,12
+The Residents,https://www.allmusic.com/artist/the-residents-mn0000420539,19,16
+The Spongetones,https://www.allmusic.com/artist/the-spongetones-mn0000485869,3,0
+The Stone Roses,https://www.allmusic.com/artist/the-stone-roses-mn0000564333,21,45
+The Turtles,https://www.allmusic.com/artist/the-turtles-mn0000564239,7,6
+The Who,https://www.allmusic.com/artist/the-who-mn0000577627,19,130
+Tom Petty,https://www.allmusic.com/artist/tom-petty-mn0000612716,17,40
+XTC,https://www.allmusic.com/artist/xtc-mn0000678339,20,51
+ABBA,https://www.allmusic.com/artist/abba-mn0000922728,12,23
+ABC,https://www.allmusic.com/artist/abc-mn0000574597,16,13
+Alan Menken,https://www.allmusic.com/artist/alan-menken-mn0000508141,12,11
+Ambrosia,https://www.allmusic.com/artist/ambrosia-mn0000019133,4,0
+Argent,https://www.allmusic.com/artist/argent-mn0000593930,6,5
+Aztec Camera,https://www.allmusic.com/artist/aztec-camera-mn0000759031,13,13
+Bastille,https://www.allmusic.com/artist/bastille-mn0002825814,16,8
+Bay City Rollers,https://www.allmusic.com/artist/bay-city-rollers-mn0000151979,12,10
+Billy Squier,https://www.allmusic.com/artist/billy-squier-mn0000084814,17,14
+Blue Öyster Cult,https://www.allmusic.com/artist/blue-%C3%B6yster-cult-mn0000061938,16,17
+Bread,https://www.allmusic.com/artist/bread-mn0000610706,11,15
+Carwyn Ellis,https://www.allmusic.com/artist/carwyn-ellis-mn0000554770,2,0
+Chad & Jeremy,https://www.allmusic.com/artist/chad-jeremy-mn0000799644,2,0
+Emerson Lake & Palmer,https://www.allmusic.com/artist/emerson-lake-palmer-mn0000798992,14,17
+Everything Everything,https://www.allmusic.com/artist/everything-everything-mn0002371422,4,1
+Herman's Hermits,https://www.allmusic.com/artist/hermans-hermits-mn0000575051,17,7
+Hüsker Dü,https://www.allmusic.com/artist/h%C3%BCsker-d%C3%BC-mn0000639053,15,48
+Imagine Dragons,https://www.allmusic.com/artist/imagine-dragons-mn0002040645,27,11
+Iron Butterfly,https://www.allmusic.com/artist/iron-butterfly-mn0000772567,16,16
+James Taylor,https://www.allmusic.com/artist/james-taylor-mn0000204386,15,31
+Jason Falkner,https://www.allmusic.com/artist/jason-falkner-mn0000217893,3,0
+Joe Jackson,https://www.allmusic.com/artist/joe-jackson-mn0000784732,16,14
+Juanes,https://www.allmusic.com/artist/juanes-mn0000245250,31,13
+Lloyd Cole,https://www.allmusic.com/artist/lloyd-cole-mn0000229348,14,5
+Manfred Mann,https://www.allmusic.com/artist/manfred-mann-mn0002285572,3,0
+Marshall Crenshaw,https://www.allmusic.com/artist/marshall-crenshaw-mn0000853492,16,9
+Mary Chapin Carpenter,https://www.allmusic.com/artist/mary-chapin-carpenter-mn0000858375,17,20
+Mumford & Sons,https://www.allmusic.com/artist/mumford-sons-mn0001072350,21,19
+Neutral Milk Hotel,https://www.allmusic.com/artist/neutral-milk-hotel-mn0000863102,10,12
+Niall Horan,https://www.allmusic.com/artist/niall-horan-mn0002854547,12,10
+Nick Lowe,https://www.allmusic.com/artist/nick-lowe-mn0000866841,20,18
+Ovens,https://www.allmusic.com/artist/ovens-mn0004321281,5,0
+Panic! At the Disco,https://www.allmusic.com/artist/panic%21-at-the-disco-mn0000318085,25,20
+Prefab Sprout,https://www.allmusic.com/artist/prefab-sprout-mn0000300024,17,20
+Procol Harum,https://www.allmusic.com/artist/procol-harum-mn0000304401,9,10
+Queen,https://www.allmusic.com/artist/queen-mn0000858827,25,88
+R. Stevie Moore,https://www.allmusic.com/artist/r-stevie-moore-mn0000384920,11,3
+Rockpile,https://www.allmusic.com/artist/rockpile-mn0000243012,3,0
+Steely Dan,https://www.allmusic.com/artist/steely-dan-mn0000011707,18,37
+Supergrass,https://www.allmusic.com/artist/supergrass-mn0000031556,19,7
+Supertramp,https://www.allmusic.com/artist/supertramp-mn0000033666,13,10
+Teenage Fanclub,https://www.allmusic.com/artist/teenage-fanclub-mn0000015694,20,18
+The Alan Parsons Project,https://www.allmusic.com/artist/the-alan-parsons-project-mn0001176481,8,0
+The Apples in Stereo,https://www.allmusic.com/artist/the-apples-in-stereo-mn0000026023,17,7
+The Brother Brothers,https://www.allmusic.com/artist/the-brother-brothers-mn0001546056,3,0
+The Chameleons,https://www.allmusic.com/artist/the-chameleons-mn0001557918,12,14
+The Church,https://www.allmusic.com/artist/the-church-mn0000764181,15,13
+The Dream Academy,https://www.allmusic.com/artist/the-dream-academy-mn0000803513,8,1
+The Feelies,https://www.allmusic.com/artist/the-feelies-mn0000762177,14,14
+The Go-Go's,https://www.allmusic.com/artist/the-go-gos-mn0000766385,13,11
+The Guess Who,https://www.allmusic.com/artist/the-guess-who-mn0000061480,10,9
+The House of Love,https://www.allmusic.com/artist/the-house-of-love-mn0000080720,17,10
+The Idle Race,https://www.allmusic.com/artist/the-idle-race-mn0000081981,1,0
+The Iveys,https://www.allmusic.com/artist/the-iveys-mn0000082755,1,0
+The Merry-Go-Round,https://www.allmusic.com/artist/the-merry-go-round-mn0000474208,1,0
+The Nazz,https://www.allmusic.com/artist/the-nazz-mn0000377892,11,8
+The Neon Philharmonic,https://www.allmusic.com/artist/the-neon-philharmonic-mn0000400322,4,0
+The Nice,https://www.allmusic.com/artist/the-nice-mn0000481061,5,5
+The Posies,https://www.allmusic.com/artist/the-posies-mn0000490554,15,11
+The Smithereens,https://www.allmusic.com/artist/the-smithereens-mn0000898479,21,10
+The Soft Boys,https://www.allmusic.com/artist/the-soft-boys-mn0000501802,11,14
+The Three O'Clock,https://www.allmusic.com/artist/the-three-oclock-mn0000571806,4,0
+Timothy Monger,https://www.allmusic.com/artist/timothy-monger-mn0000635997,16,0
+Travis,https://www.allmusic.com/artist/travis-mn0000013508,21,4
+Utopia,https://www.allmusic.com/artist/utopia-mn0000837486,10,3
+World Party,https://www.allmusic.com/artist/world-party-mn0000958768,16,3
+Ari Roar,https://www.allmusic.com/artist/ari-roar-mn0003732622,9,0
+Cage the Elephant,https://www.allmusic.com/artist/cage-the-elephant-mn0001061166,16,7
+Freddie & the Dreamers,https://www.allmusic.com/artist/freddie-the-dreamers-mn0000177558,3,0
+George Michael,https://www.allmusic.com/artist/george-michael-mn0000545074,18,22
+It's a Beautiful Day,https://www.allmusic.com/artist/its-a-beautiful-day-mn0000109012,1,0
+Jackson Browne,https://www.allmusic.com/artist/jackson-browne-mn0000130689,13,19
+Kansas,https://www.allmusic.com/artist/kansas-mn0000303626,14,9
+Kate Bush,https://www.allmusic.com/artist/kate-bush-mn0000855423,10,35
+King Crimson,https://www.allmusic.com/artist/king-crimson-mn0000076057,17,67
+Lenny Kravitz,https://www.allmusic.com/artist/lenny-kravitz-mn0000200074,20,11
+M. Ward,https://www.allmusic.com/artist/m-ward-mn0000217641,16,1
+Marmalade,https://www.allmusic.com/artist/marmalade-mn0000334054,2,0
+Mott the Hoople,https://www.allmusic.com/artist/mott-the-hoople-mn0000596126,11,14
+One Direction,https://www.allmusic.com/artist/one-direction-mn0002766592,18,15
+Patti LaBelle,https://www.allmusic.com/artist/patti-labelle-mn0000017748,17,26
+Quicksilver Messenger Service,https://www.allmusic.com/artist/quicksilver-messenger-service-mn0000317417,18,16
+Seal,https://www.allmusic.com/artist/seal-mn0000576718,29,22
+Sebadoh,https://www.allmusic.com/artist/sebadoh-mn0000840523,24,44
+Sloan,https://www.allmusic.com/artist/sloan-mn0000029978,21,13
+Small Faces,https://www.allmusic.com/artist/small-faces-mn0000423267,16,13
+Spirit,https://www.allmusic.com/artist/spirit-mn0000746010,13,8
+Split Enz,https://www.allmusic.com/artist/split-enz-mn0000747757,13,13
+Spoon,https://www.allmusic.com/artist/spoon-mn0000131038,20,3
+Status Quo,https://www.allmusic.com/artist/status-quo-mn0000745241,9,9
+The Rockin' Berries,https://www.allmusic.com/artist/the-rockin-berries-mn0000486115,2,0
+The Rubinoos,https://www.allmusic.com/artist/the-rubinoos-mn0000297955,5,3
+The Sir Douglas Quintet,https://www.allmusic.com/artist/the-sir-douglas-quintet-mn0000018708,2,0
+Third Eye Blind,https://www.allmusic.com/artist/third-eye-blind-mn0000926237,18,4
+Vanilla Fudge,https://www.allmusic.com/artist/vanilla-fudge-mn0000311674,10,15
+Aaron Lee Tasjan,https://www.allmusic.com/artist/aaron-lee-tasjan-mn0002930846,3,0
+AJ Mitchell,https://www.allmusic.com/artist/aj-mitchell-mn0003779965,5,0
+Andy Bell,https://www.allmusic.com/artist/andy-bell-mn0002443836,4,0
+Apoptygma Berzerk,https://www.allmusic.com/artist/apoptygma-berzerk-mn0000496556,10,0
+Big Time Rush,https://www.allmusic.com/artist/big-time-rush-mn0002534053,5,0
+Blossom Toes,https://www.allmusic.com/artist/blossom-toes-mn0000056563,3,0
+Blossoms,https://www.allmusic.com/artist/blossoms-mn0003457444,9,0
+Burton Cummings,https://www.allmusic.com/artist/burton-cummings-mn0000942580,3,0
+Claire Rosinkranz,https://www.allmusic.com/artist/claire-rosinkranz-mn0003970104,3,0
+Claypool Lennon Delirium,https://www.allmusic.com/artist/claypool-lennon-delirium-mn0003475083,2,0
+Color Bars,https://www.allmusic.com/artist/color-bars-mn0000322277,6,0
+Dan Luke and the Raid,https://www.allmusic.com/artist/dan-luke-and-the-raid-mn0003858491,11,0
+Danger Mouse,https://www.allmusic.com/artist/danger-mouse-mn0000674440,8,1
+Devan Dubois,https://www.allmusic.com/artist/devan-dubois-mn0003295166,2,0
+Dodgy,https://www.allmusic.com/artist/dodgy-mn0000172205,3,0
+Ellie Pop,https://www.allmusic.com/artist/ellie-pop-mn0002322838,1,0
+Fanny,https://www.allmusic.com/artist/fanny-mn0001467262,3,0
+Fauna Flora,https://www.allmusic.com/artist/fauna-flora-mn0003251033,2,0
+Fictionist,https://www.allmusic.com/artist/fictionist-mn0001049792,8,0
+Finish Ticket,https://www.allmusic.com/artist/finish-ticket-mn0002883447,5,0
+Finn Brothers,https://www.allmusic.com/artist/finn-brothers-mn0000794604,3,0
+Forever in Your Mind,https://www.allmusic.com/artist/forever-in-your-mind-mn0003408500,6,0
+Francis Lung,https://www.allmusic.com/artist/francis-lung-mn0002777340,3,0
+Fruition,https://www.allmusic.com/artist/fruition-mn0003181047,1,0
+Gary Puckett & the Union Gap,https://www.allmusic.com/artist/gary-puckett-the-union-gap-mn0000188847,3,0
+Glee,https://www.allmusic.com/artist/glee-mn0001790434,4,1
+Hailey Knox,https://www.allmusic.com/artist/hailey-knox-mn0003514849,9,0
+Harry Styles,https://www.allmusic.com/artist/harry-styles-mn0002854537,10,3
+James Supercave,https://www.allmusic.com/artist/james-supercave-mn0003386362,16,0
+Jigsaw,https://www.allmusic.com/artist/jigsaw-mn0001032454,1,0
+Jim Croce,https://www.allmusic.com/artist/jim-croce-mn0000848034,13,19
+John McCullagh,https://www.allmusic.com/artist/john-mccullagh-mn0003154359,7,0
+John the Blind,https://www.allmusic.com/artist/john-the-blind-mn0003809214,1,0
+Johnnie Mikel,https://www.allmusic.com/artist/johnnie-mikel-mn0003750097,7,0
+Johnny Payne,https://www.allmusic.com/artist/johnny-payne-mn0001409043,5,0
+Kevin Kiner,https://www.allmusic.com/artist/kevin-kiner-mn0000084280,20,0
+Klangstof,https://www.allmusic.com/artist/klangstof-mn0003509025,3,0
+Kyle Craft,https://www.allmusic.com/artist/kyle-craft-mn0001476358,5,0
+L.A. Salami,https://www.allmusic.com/artist/la-salami-mn0003514363,8,0
+Laurie Jones,https://www.allmusic.com/artist/laurie-jones-mn0000886081,10,0
+Lennon Stella,https://www.allmusic.com/artist/lennon-stella-mn0003024972,3,0
+Levitation Room,https://www.allmusic.com/artist/levitation-room-mn0003462983,7,0
+Lukas Graham,https://www.allmusic.com/artist/lukas-graham-mn0003065843,5,0
+Mainland,https://www.allmusic.com/artist/mainland-mn0001470961,12,0
+Matt Simons,https://www.allmusic.com/artist/matt-simons-mn0001019633,1,0
+Max Webster,https://www.allmusic.com/artist/max-webster-mn0000395404,13,0
+Mayday,https://www.allmusic.com/artist/mayday-mn0000866769,5,0
+Michael W. Smith,https://www.allmusic.com/artist/michael-w-smith-mn0000466759,19,24
+Mikey Wax,https://www.allmusic.com/artist/mikey-wax-mn0001737958,3,0
+Mo Troper,https://www.allmusic.com/artist/mo-troper-mn0003289108,2,0
+Nick Howard,https://www.allmusic.com/artist/nick-howard-mn0003046755,7,0
+Nick Piunti,https://www.allmusic.com/artist/nick-piunti-mn0001522059,5,0
+Noel Gallagher's High Flying Birds,https://www.allmusic.com/artist/noel-gallaghers-high-flying-birds-mn0002766476,3,0
+OneRepublic,https://www.allmusic.com/artist/onerepublic-mn0000656541,10,10
+Pablo Cruise,https://www.allmusic.com/artist/pablo-cruise-mn0000003170,4,0
+Papooz,https://www.allmusic.com/artist/papooz-mn0003493275,2,0
+Pete Macleod,https://www.allmusic.com/artist/pete-macleod-mn0001495727,5,0
+Phil Ajjarapu,https://www.allmusic.com/artist/phil-ajjarapu-mn0001325237,6,0
+Portugal. The Man,https://www.allmusic.com/artist/portugal-the-man-mn0000716469,9,0
+Rodney Crowell,https://www.allmusic.com/artist/rodney-crowell-mn0000294085,18,23
+San Mei,https://www.allmusic.com/artist/san-mei-mn0003679560,4,0
+Shawn Hook,https://www.allmusic.com/artist/shawn-hook-mn0002926957,15,0
+Sivert Høyem,https://www.allmusic.com/artist/sivert-h%C3%B8yem-mn0001314128,13,0
+Spanky & Our Gang,https://www.allmusic.com/artist/spanky-our-gang-mn0000008245,2,0
+Sweet Baboo,https://www.allmusic.com/artist/sweet-baboo-mn0002149390,7,0
+Switchfoot,https://www.allmusic.com/artist/switchfoot-mn0000049026,14,10
+Telly Leung,https://www.allmusic.com/artist/telly-leung-mn0002064826,7,0
+The Aerovons,https://www.allmusic.com/artist/the-aerovons-mn0001420543,2,0
+The Creases,https://www.allmusic.com/artist/the-creases-mn0003176107,7,0
+The Empty Hearts,https://www.allmusic.com/artist/the-empty-hearts-mn0002919875,6,0
+The Equals,https://www.allmusic.com/artist/the-equals-mn0000056833,3,0
+The Jaded Hearts Club,https://www.allmusic.com/artist/the-jaded-hearts-club-mn0003914782,1,0
+The Kik,https://www.allmusic.com/artist/the-kik-mn0001577499,1,0
+The Legal Matters,https://www.allmusic.com/artist/the-legal-matters-mn0003263088,7,0
+The Lemon Twigs,https://www.allmusic.com/artist/the-lemon-twigs-mn0003539906,9,0
+The Maine,https://www.allmusic.com/artist/the-maine-mn0000667657,9,0
+The Milk Carton Kids,https://www.allmusic.com/artist/the-milk-carton-kids-mn0002832941,3,0
+The Pretty Reckless,https://www.allmusic.com/artist/the-pretty-reckless-mn0001630569,7,0
+The Shilohs,https://www.allmusic.com/artist/the-shilohs-mn0002892516,4,0
+Tom Wardle,https://www.allmusic.com/artist/tom-wardle-mn0002690610,9,0
+Train,https://www.allmusic.com/artist/train-mn0000746302,29,11
+Trent Dabbs,https://www.allmusic.com/artist/trent-dabbs-mn0000810208,6,0
+Trevor James Tillery,https://www.allmusic.com/artist/trevor-james-tillery-mn0003501658,9,0
+Viola Beach,https://www.allmusic.com/artist/viola-beach-mn0003472410,4,0
+Violet Days,https://www.allmusic.com/artist/violet-days-mn0003457364,9,0
+Yungblud,https://www.allmusic.com/artist/yungblud-mn0003637248,5,0
+Zedd,https://www.allmusic.com/artist/zedd-mn0002782403,13,10
+Zuzu,https://www.allmusic.com/artist/zuzu-mn0001508600,8,0
