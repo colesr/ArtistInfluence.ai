@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Music Influence Network — AllMusic</title>
+<script src="vendor/cytoscape.min.js"></script>
+<script src="vendor/layout-base.js"></script>
+<script src="vendor/cose-base.js"></script>
+<script src="vendor/cytoscape-fcose.js"></script>
+<style>
+  :root {
+    --bg: #0e0f13;
+    --panel: #16181f;
+    --panel-2: #1e2129;
+    --border: #2a2d38;
+    --text: #e8e9ef;
+    --muted: #8a8fa0;
+    --accent: #b478ff;
+    --accent-2: #6ec3ff;
+    --hi: #ffce5c;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: var(--bg); color: var(--text); font-family: -apple-system, "Segoe UI", Roboto, sans-serif; overflow: hidden; }
+  #app { display: grid; grid-template-columns: 320px 1fr 360px; height: 100vh; }
+  .panel { background: var(--panel); border-right: 1px solid var(--border); padding: 16px; overflow-y: auto; }
+  #right { border-right: none; border-left: 1px solid var(--border); }
+  h1 { font-size: 16px; margin: 0 0 4px 0; letter-spacing: .3px; }
+  h2 { font-size: 13px; color: var(--muted); margin: 18px 0 8px 0; text-transform: uppercase; letter-spacing: 1.2px; font-weight: 600; }
+  .sub { font-size: 12px; color: var(--muted); margin-bottom: 14px; }
+  .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .stat { background: var(--panel-2); padding: 10px; border-radius: 6px; border: 1px solid var(--border); }
+  .stat .v { font-size: 18px; font-weight: 700; color: var(--accent); }
+  .stat .l { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  input[type=search], select { width: 100%; background: var(--panel-2); color: var(--text); border: 1px solid var(--border); padding: 8px 10px; border-radius: 6px; font-size: 13px; }
+  input[type=search]:focus, select:focus { outline: none; border-color: var(--accent); }
+  label.row { display: flex; align-items: center; gap: 8px; font-size: 13px; margin: 6px 0; cursor: pointer; user-select: none; }
+  input[type=range] { width: 100%; }
+  #search-results { margin-top: 8px; max-height: 220px; overflow-y: auto; }
+  .result { padding: 6px 8px; font-size: 13px; cursor: pointer; border-radius: 4px; display: flex; justify-content: space-between; align-items: center; }
+  .result:hover { background: var(--panel-2); }
+  .result .deg { color: var(--muted); font-size: 11px; }
+  .result.profiled { color: var(--accent); }
+  #cy { background: radial-gradient(ellipse at center, #161823 0%, #0a0b10 100%); }
+  .legend-item { display: flex; align-items: center; gap: 8px; font-size: 12px; margin: 4px 0; color: var(--muted); }
+  .dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+  .arrow { width: 24px; height: 2px; background: var(--muted); position: relative; }
+  .arrow::after { content: ''; position: absolute; right: -1px; top: -3px; border-left: 6px solid var(--muted); border-top: 4px solid transparent; border-bottom: 4px solid transparent; }
+  #details .empty { color: var(--muted); font-size: 13px; font-style: italic; padding-top: 40px; text-align: center; }
+  #details h3 { margin: 0 0 4px 0; font-size: 20px; }
+  #details a.am-link { color: var(--accent-2); font-size: 12px; text-decoration: none; }
+  #details a.am-link:hover { text-decoration: underline; }
+  .pill { display: inline-block; background: var(--panel-2); border: 1px solid var(--border); padding: 3px 8px; border-radius: 12px; font-size: 11px; margin-right: 4px; color: var(--muted); }
+  .pill.hi { background: rgba(180,120,255,.15); border-color: var(--accent); color: var(--accent); }
+  .artist-list { max-height: 180px; overflow-y: auto; border: 1px solid var(--border); border-radius: 6px; background: var(--panel-2); }
+  .artist-list .item { padding: 6px 10px; font-size: 12px; cursor: pointer; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; }
+  .artist-list .item:last-child { border-bottom: none; }
+  .artist-list .item:hover { background: rgba(180,120,255,.08); color: var(--accent); }
+  .artist-list .item .profiled-tag { font-size: 9px; padding: 1px 5px; border-radius: 3px; background: var(--accent); color: #000; }
+  .toolbar { position: absolute; top: 12px; right: 380px; display: flex; gap: 6px; z-index: 10; }
+  .btn { background: var(--panel); border: 1px solid var(--border); color: var(--text); padding: 6px 12px; font-size: 12px; border-radius: 6px; cursor: pointer; }
+  .btn:hover { background: var(--panel-2); border-color: var(--accent); }
+  .center-msg { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: var(--muted); pointer-events: none; font-size: 14px; }
+  #loading { display: flex; align-items: center; gap: 10px; }
+  .spinner { width: 16px; height: 16px; border: 2px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .count-bars { display: flex; gap: 4px; align-items: center; font-size: 11px; color: var(--muted); margin-top: 4px; }
+  .bar { height: 4px; background: var(--panel-2); border-radius: 2px; flex: 1; overflow: hidden; }
+  .bar > span { display: block; height: 100%; background: var(--accent); }
+</style>
+</head>
+<body>
+<div id="app">
+
+  <aside class="panel" id="left">
+    <h1>Music Influence Network</h1>
+    <div class="sub">AllMusic.com · "A influenced B" graph</div>
+
+    <div class="stat-grid">
+      <div class="stat"><div class="v" id="stat-profiled">—</div><div class="l">Profiled artists</div></div>
+      <div class="stat"><div class="v" id="stat-total">—</div><div class="l">Total artists</div></div>
+      <div class="stat"><div class="v" id="stat-edges">—</div><div class="l">Influence links</div></div>
+      <div class="stat"><div class="v" id="stat-visible">—</div><div class="l">In view</div></div>
+    </div>
+
+    <h2>View</h2>
+    <select id="view-mode">
+      <option value="profiled">Profiled artists only (137)</option>
+      <option value="all">Full network (4,973)</option>
+      <option value="ego">Selected artist + neighbors</option>
+    </select>
+
+    <h2>Search</h2>
+    <input type="search" id="search" placeholder="Find an artist…" autocomplete="off">
+    <div id="search-results"></div>
+
+    <h2>Filter</h2>
+    <label class="row">
+      <input type="checkbox" id="filter-show-unprofiled" checked> Show unprofiled artists
+    </label>
+    <label class="row" style="display:block">
+      Minimum total connections: <span id="deg-val">0</span>
+      <input type="range" id="deg-filter" min="0" max="50" value="0">
+    </label>
+
+    <h2>Legend</h2>
+    <div class="legend-item"><span class="dot" style="background:#b478ff"></span> Profiled (full data)</div>
+    <div class="legend-item"><span class="dot" style="background:#5a5f70"></span> Unprofiled (referenced only)</div>
+    <div class="legend-item"><span class="arrow"></span> &nbsp;A influenced B</div>
+    <div class="legend-item">Node size = total connections</div>
+
+    <h2>Tips</h2>
+    <div style="font-size:12px; color:var(--muted); line-height:1.5">
+      Drag the canvas to pan · scroll to zoom · click a node for details · double-click to focus the ego network.
+    </div>
+  </aside>
+
+  <main style="position:relative">
+    <div id="cy" style="width:100%; height:100%"></div>
+    <div class="toolbar">
+      <button class="btn" id="btn-fit">Fit view</button>
+      <button class="btn" id="btn-relayout">Re-layout</button>
+    </div>
+    <div class="center-msg" id="loading"><div class="spinner"></div> Building graph…</div>
+  </main>
+
+  <aside class="panel" id="right">
+    <h2>Selected artist</h2>
+    <div id="details">
+      <div class="empty">Click any node to see details.</div>
+    </div>
+  </aside>
+
+</div>
+
+<script>
+const NETWORK_DATA = __DATA_PLACEHOLDER__;
+
+document.getElementById('stat-profiled').textContent = NETWORK_DATA.metadata.profiledArtists.toLocaleString();
+document.getElementById('stat-total').textContent = NETWORK_DATA.metadata.totalArtistNodes.toLocaleString();
+document.getElementById('stat-edges').textContent = NETWORK_DATA.metadata.totalInfluenceEdges.toLocaleString();
+
+const nodeIndex = new Map(NETWORK_DATA.nodes.map(n => [n.id, n]));
+
+function sizeFor(node) {
+  const total = node.inDeg + node.outDeg;
+  return Math.min(70, 10 + Math.sqrt(total) * 4);
+}
+
+function colorFor(node) {
+  if (!node.profiled) return '#5a5f70';
+  const influence = node.outDeg;
+  if (influence >= 60) return '#ffce5c';   // legends
+  if (influence >= 30) return '#d89bff';
+  if (influence >= 10) return '#b478ff';
+  return '#8c5cd6';
+}
+
+function buildElements(mode, opts) {
+  const showUnprofiled = opts.showUnprofiled;
+  const minDeg = opts.minDeg;
+  const focusId = opts.focusId;
+
+  let allowedNodes;
+  if (mode === 'profiled') {
+    allowedNodes = new Set(NETWORK_DATA.nodes.filter(n => n.profiled).map(n => n.id));
+  } else if (mode === 'ego' && focusId) {
+    allowedNodes = new Set([focusId]);
+    for (const e of NETWORK_DATA.edges) {
+      if (e.s === focusId) allowedNodes.add(e.t);
+      if (e.t === focusId) allowedNodes.add(e.s);
+    }
+  } else {
+    allowedNodes = new Set(NETWORK_DATA.nodes.map(n => n.id));
+  }
+
+  const filtered = [];
+  for (const id of allowedNodes) {
+    const n = nodeIndex.get(id);
+    if (!n) continue;
+    if (!showUnprofiled && !n.profiled && mode !== 'ego') continue;
+    if ((n.inDeg + n.outDeg) < minDeg && mode !== 'ego') continue;
+    filtered.push(n);
+  }
+  const filteredSet = new Set(filtered.map(n => n.id));
+
+  const nodes = filtered.map(n => ({
+    data: {
+      id: n.id,
+      label: n.id,
+      profiled: n.profiled,
+      inDeg: n.inDeg,
+      outDeg: n.outDeg,
+      total: n.inDeg + n.outDeg,
+      size: sizeFor(n),
+      color: colorFor(n),
+      url: n.url,
+    }
+  }));
+
+  const edges = [];
+  for (const e of NETWORK_DATA.edges) {
+    if (filteredSet.has(e.s) && filteredSet.has(e.t)) {
+      edges.push({ data: { id: e.s + '|' + e.t, source: e.s, target: e.t } });
+    }
+  }
+  return { nodes, edges };
+}
+
+const style = [
+  { selector: 'node', style: {
+      'background-color': 'data(color)',
+      'width': 'data(size)', 'height': 'data(size)',
+      'label': 'data(label)',
+      'color': '#e8e9ef', 'font-size': 10, 'text-outline-color': '#0e0f13', 'text-outline-width': 2,
+      'text-valign': 'bottom', 'text-margin-y': 4,
+      'min-zoomed-font-size': 8,
+      'border-width': 0,
+  }},
+  { selector: 'node[profiled = true]', style: { 'font-size': 12, 'font-weight': 'bold' } },
+  { selector: 'node:selected', style: { 'border-width': 3, 'border-color': '#ffce5c', 'font-size': 14, 'min-zoomed-font-size': 0 } },
+  { selector: '.faded', style: { 'opacity': 0.08, 'text-opacity': 0 } },
+  { selector: '.highlight', style: { 'opacity': 1, 'border-width': 2, 'border-color': '#ffffff' } },
+  { selector: 'edge', style: {
+      'width': 1, 'line-color': '#3b3f4d', 'curve-style': 'bezier',
+      'target-arrow-color': '#3b3f4d', 'target-arrow-shape': 'triangle', 'arrow-scale': 0.7,
+      'opacity': 0.55,
+  }},
+  { selector: 'edge.highlight-in', style: { 'line-color': '#6ec3ff', 'target-arrow-color': '#6ec3ff', 'width': 2, 'opacity': 1, 'z-index': 10 } },
+  { selector: 'edge.highlight-out', style: { 'line-color': '#b478ff', 'target-arrow-color': '#b478ff', 'width': 2, 'opacity': 1, 'z-index': 10 } },
+];
+
+const cy = cytoscape({
+  container: document.getElementById('cy'),
+  elements: [], style, wheelSensitivity: 0.25,
+  minZoom: 0.05, maxZoom: 4,
+});
+
+let currentMode = 'profiled';
+let currentFocus = null;
+
+function rebuild(animateLayout = true) {
+  document.getElementById('loading').style.display = 'flex';
+  setTimeout(() => {
+    const { nodes, edges } = buildElements(currentMode, {
+      showUnprofiled: document.getElementById('filter-show-unprofiled').checked,
+      minDeg: parseInt(document.getElementById('deg-filter').value, 10),
+      focusId: currentFocus,
+    });
+    cy.elements().remove();
+    cy.add(nodes); cy.add(edges);
+    document.getElementById('stat-visible').textContent = nodes.length.toLocaleString();
+
+    const layoutName = nodes.length > 800 ? 'fcose' : 'fcose';
+    const layout = cy.layout({
+      name: 'fcose',
+      animate: animateLayout && nodes.length < 1500,
+      animationDuration: 600,
+      randomize: true,
+      nodeRepulsion: nodes.length > 500 ? 4000 : 8000,
+      idealEdgeLength: nodes.length > 500 ? 60 : 100,
+      edgeElasticity: 0.45,
+      gravity: 0.25,
+      numIter: nodes.length > 1500 ? 1500 : 2500,
+      tile: true,
+      packComponents: true,
+      quality: nodes.length > 1500 ? 'draft' : 'default',
+      fit: true, padding: 40,
+    });
+    layout.one('layoutstop', () => {
+      document.getElementById('loading').style.display = 'none';
+    });
+    layout.run();
+  }, 30);
+}
+
+cy.on('tap', 'node', (evt) => {
+  const n = evt.target;
+  selectArtist(n.id());
+});
+
+cy.on('dbltap', 'node', (evt) => {
+  currentFocus = evt.target.id();
+  currentMode = 'ego';
+  document.getElementById('view-mode').value = 'ego';
+  rebuild();
+});
+
+cy.on('tap', (evt) => {
+  if (evt.target === cy) {
+    cy.elements().removeClass('faded highlight highlight-in highlight-out');
+    showEmptyDetails();
+  }
+});
+
+function highlightNeighborhood(id) {
+  const node = cy.getElementById(id);
+  if (node.empty()) return;
+  cy.elements().addClass('faded').removeClass('highlight highlight-in highlight-out');
+  node.removeClass('faded').addClass('highlight');
+  node.connectedEdges().forEach(e => {
+    e.removeClass('faded');
+    const other = e.source().id() === id ? e.target() : e.source();
+    other.removeClass('faded');
+    if (e.target().id() === id) e.addClass('highlight-in');
+    else e.addClass('highlight-out');
+  });
+}
+
+function selectArtist(id) {
+  highlightNeighborhood(id);
+  cy.animate({ center: { eles: cy.getElementById(id) }, zoom: Math.max(cy.zoom(), 1.2) }, { duration: 400 });
+  renderDetails(id);
+}
+
+function showEmptyDetails() {
+  document.getElementById('details').innerHTML = '<div class="empty">Click any node to see details.</div>';
+}
+
+function renderDetails(id) {
+  const meta = nodeIndex.get(id);
+  if (!meta) return;
+  const profile = NETWORK_DATA.profiles[id];
+  const root = document.getElementById('details');
+
+  const influencedBy = (profile && profile.influencedBy) || [];
+  const influenced = (profile && profile.influenced) || [];
+
+  const buildList = (arr) => {
+    if (!arr.length) return '<div style="font-size:12px; color:var(--muted); padding:8px;">None recorded.</div>';
+    return '<div class="artist-list">' + arr.map(name => {
+      const ref = nodeIndex.get(name);
+      const isProf = ref && ref.profiled;
+      return `<div class="item" data-artist="${escapeAttr(name)}">
+        <span>${escapeHtml(name)}</span>
+        ${isProf ? '<span class="profiled-tag">PROFILED</span>' : ''}
+      </div>`;
+    }).join('') + '</div>';
+  };
+
+  const inflPill = meta.profiled ? '<span class="pill hi">Profiled</span>' : '<span class="pill">Referenced only</span>';
+
+  let html = `
+    <h3>${escapeHtml(id)}</h3>
+    <div style="margin-bottom:10px">${inflPill}
+      ${profile && profile.url ? `<a class="am-link" href="${escapeAttr(profile.url)}" target="_blank" rel="noopener">AllMusic ↗</a>` : ''}
+    </div>
+    <div class="stat-grid">
+      <div class="stat"><div class="v">${meta.inDeg}</div><div class="l">Influencers</div></div>
+      <div class="stat"><div class="v">${meta.outDeg}</div><div class="l">Influenced</div></div>
+    </div>
+  `;
+
+  if (meta.profiled) {
+    html += `
+      <h2>Influenced by (${influencedBy.length})</h2>
+      ${buildList(influencedBy)}
+      <h2>Influenced (${influenced.length})</h2>
+      ${buildList(influenced)}
+    `;
+  } else {
+    const influencers = [], influencedArt = [];
+    for (const e of NETWORK_DATA.edges) {
+      if (e.t === id) influencers.push(e.s);
+      if (e.s === id) influencedArt.push(e.t);
+    }
+    html += `
+      <div style="font-size:12px; color:var(--muted); margin:10px 0">
+        This artist isn't fully profiled — only edges to/from profiled artists are known.
+      </div>
+      <h2>Known influencers (${influencers.length})</h2>
+      ${buildList(influencers)}
+      <h2>Known influenced (${influencedArt.length})</h2>
+      ${buildList(influencedArt)}
+    `;
+  }
+
+  root.innerHTML = html;
+  root.querySelectorAll('.artist-list .item').forEach(el => {
+    el.addEventListener('click', () => {
+      const name = el.getAttribute('data-artist');
+      const n = cy.getElementById(name);
+      if (n.empty()) {
+        currentMode = 'all';
+        document.getElementById('view-mode').value = 'all';
+        rebuild();
+        setTimeout(() => selectArtist(name), 200);
+      } else {
+        selectArtist(name);
+      }
+    });
+  });
+}
+
+function escapeHtml(s) { return String(s).replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
+function escapeAttr(s) { return String(s).replace(/"/g, '&quot;'); }
+
+// Search box
+const searchInput = document.getElementById('search');
+const searchResults = document.getElementById('search-results');
+searchInput.addEventListener('input', () => {
+  const q = searchInput.value.trim().toLowerCase();
+  if (!q) { searchResults.innerHTML = ''; return; }
+  const matches = NETWORK_DATA.nodes
+    .filter(n => n.id.toLowerCase().includes(q))
+    .sort((a, b) => (b.profiled - a.profiled) || ((b.inDeg + b.outDeg) - (a.inDeg + a.outDeg)))
+    .slice(0, 30);
+  searchResults.innerHTML = matches.map(m => `
+    <div class="result ${m.profiled ? 'profiled' : ''}" data-artist="${escapeAttr(m.id)}">
+      <span>${escapeHtml(m.id)}</span>
+      <span class="deg">${m.inDeg}→${m.outDeg}</span>
+    </div>
+  `).join('');
+  searchResults.querySelectorAll('.result').forEach(el => {
+    el.addEventListener('click', () => {
+      const name = el.getAttribute('data-artist');
+      const n = cy.getElementById(name);
+      if (n.empty()) {
+        currentMode = 'all';
+        document.getElementById('view-mode').value = 'all';
+        rebuild();
+        setTimeout(() => selectArtist(name), 300);
+      } else {
+        selectArtist(name);
+      }
+    });
+  });
+});
+
+document.getElementById('view-mode').addEventListener('change', (e) => {
+  currentMode = e.target.value;
+  if (currentMode !== 'ego') currentFocus = null;
+  rebuild();
+});
+document.getElementById('filter-show-unprofiled').addEventListener('change', () => rebuild());
+const degSlider = document.getElementById('deg-filter');
+const degVal = document.getElementById('deg-val');
+degSlider.addEventListener('input', () => { degVal.textContent = degSlider.value; });
+degSlider.addEventListener('change', () => rebuild());
+
+document.getElementById('btn-fit').addEventListener('click', () => cy.fit(null, 40));
+document.getElementById('btn-relayout').addEventListener('click', () => rebuild());
+
+rebuild();
+</script>
+</body>
+</html>
