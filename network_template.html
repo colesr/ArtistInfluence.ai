@@ -63,6 +63,33 @@
   #loading { display: flex; align-items: center; gap: 10px; }
   .spinner { width: 16px; height: 16px; border: 2px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; }
   @keyframes spin { to { transform: rotate(360deg); } }
+  .title-row { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
+  .title-row h1 { margin: 0; }
+  .equalizer { display: inline-flex; align-items: flex-end; gap: 3px; height: 18px; }
+  .equalizer span {
+    display: block; width: 3px; border-radius: 1px;
+    background: linear-gradient(180deg, var(--accent-2), var(--accent));
+    animation: eq 1.4s ease-in-out infinite;
+  }
+  .equalizer span:nth-child(1) { animation-delay: 0.0s; }
+  .equalizer span:nth-child(2) { animation-delay: 0.2s; }
+  .equalizer span:nth-child(3) { animation-delay: 0.4s; }
+  .equalizer span:nth-child(4) { animation-delay: 0.6s; }
+  @keyframes eq {
+    0%, 100% { height: 3px;  opacity: 0.45; }
+    50%      { height: 16px; opacity: 1; }
+  }
+  .blinker {
+    width: 9px; height: 9px; border-radius: 50%;
+    background: var(--hi);
+    opacity: 0; transition: opacity .15s;
+    box-shadow: 0 0 0 0 rgba(255,206,92, 0.6);
+  }
+  .blinker.active { animation: blink 0.7s ease-in-out infinite; }
+  @keyframes blink {
+    0%, 100% { opacity: 0.35; transform: scale(0.85); box-shadow: 0 0 0 0 rgba(255,206,92, 0.55); }
+    50%      { opacity: 1.00; transform: scale(1.15); box-shadow: 0 0 0 6px rgba(255,206,92, 0); }
+  }
   .count-bars { display: flex; gap: 4px; align-items: center; font-size: 11px; color: var(--muted); margin-top: 4px; }
   .bar { height: 4px; background: var(--panel-2); border-radius: 2px; flex: 1; overflow: hidden; }
   .bar > span { display: block; height: 100%; background: var(--accent); }
@@ -72,8 +99,12 @@
 <div id="app">
 
   <aside class="panel" id="left">
-    <h1>Music Influence Network</h1>
-    <div class="sub">AllMusic.com · "A influenced B" graph</div>
+    <div class="title-row">
+      <h1>Music Influence Network</h1>
+      <span class="equalizer" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
+      <span class="blinker" id="header-blinker" aria-hidden="true"></span>
+    </div>
+    <div class="sub">Artist influence graph</div>
 
     <div class="stat-grid">
       <div class="stat"><div class="v" id="stat-profiled">—</div><div class="l">Profiled artists</div></div>
@@ -105,7 +136,7 @@
     <h2>Legend</h2>
     <div class="legend-item"><span class="dot" style="background:#b478ff"></span> Profiled (full data)</div>
     <div class="legend-item"><span class="dot" style="background:#5a5f70"></span> Unprofiled (referenced only)</div>
-    <div class="legend-item"><span class="arrow"></span> &nbsp;A influenced B</div>
+    <div class="legend-item"><span class="arrow"></span> &nbsp;Direction of influence</div>
     <div class="legend-item">Node size = total connections</div>
 
     <h2>Tips</h2>
@@ -238,8 +269,13 @@ const cy = cytoscape({
 let currentMode = 'profiled';
 let currentFocus = null;
 
+function setBusy(busy) {
+  document.getElementById('loading').style.display = busy ? 'flex' : 'none';
+  document.getElementById('header-blinker').classList.toggle('active', busy);
+}
+
 function rebuild(animateLayout = true) {
-  document.getElementById('loading').style.display = 'flex';
+  setBusy(true);
   setTimeout(() => {
     const { nodes, edges } = buildElements(currentMode, {
       showUnprofiled: document.getElementById('filter-show-unprofiled').checked,
@@ -267,7 +303,7 @@ function rebuild(animateLayout = true) {
       fit: true, padding: 40,
     });
     layout.one('layoutstop', () => {
-      document.getElementById('loading').style.display = 'none';
+      setBusy(false);
     });
     layout.run();
   }, 30);
