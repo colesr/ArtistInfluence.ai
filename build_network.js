@@ -25,8 +25,11 @@ const nodesOut = raw.nodes.map(n => ({
 
 const edgesOut = raw.edges.map(e => ({ s: e.source, t: e.target }));
 
-// Profiles already have rich [{name, href}] arrays — pass them through.
-const profiles = raw.profiles || {};
+// Profiles ship as an array — index them by artist name for O(1) lookup in the UI.
+const profiles = {};
+for (const p of Object.values(raw.profiles || {})) {
+  if (p && p.name) profiles[p.name] = p;
+}
 
 const metadata = {
   generatedAt: raw.metadata.generatedAt,
