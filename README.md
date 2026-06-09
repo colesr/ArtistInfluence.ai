@@ -18,3 +18,8 @@ If URL redirects to search page: remove it from the queue and skip
 After batch: regenerate and re-download all 3 files using the Blob download scripts
 
 The extraction JS (inline) and the download scripts are the same ones used throughout this session. The localStorage keys (influenceGraph, processQueue, visitedUrls) persist across page navigations on allmusic.com.
+
+<img width="2860" height="1368" alt="ArtistInfluence ai" src="https://github.com/user-attachments/assets/f6cc216e-b66e-4682-afc9-e6a13a244395" />
+
+<img width="2850" height="1338" alt="ArtistInfluence ai2" src="https://github.com/user-attachments/assets/103f450f-f23b-479d-acbf-ec846c7d6287" />
+
