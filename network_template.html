@@ -18,6 +18,7 @@
     --accent: #b478ff;
     --accent-2: #6ec3ff;
     --hi: #ffce5c;
+    --path: #ff8a4c;
   }
   * { box-sizing: border-box; }
   html, body { margin: 0; height: 100%; background: var(--bg); color: var(--text); font-family: -apple-system, "Segoe UI", Roboto, sans-serif; overflow: hidden; }
@@ -31,13 +32,14 @@
   .stat { background: var(--panel-2); padding: 10px; border-radius: 6px; border: 1px solid var(--border); }
   .stat .v { font-size: 18px; font-weight: 700; color: var(--accent); }
   .stat .l { font-size: 11px; color: var(--muted); margin-top: 2px; }
-  input[type=search], select { width: 100%; background: var(--panel-2); color: var(--text); border: 1px solid var(--border); padding: 8px 10px; border-radius: 6px; font-size: 13px; }
-  input[type=search]:focus, select:focus { outline: none; border-color: var(--accent); }
+  input[type=search], input[type=text], select { width: 100%; background: var(--panel-2); color: var(--text); border: 1px solid var(--border); padding: 8px 10px; border-radius: 6px; font-size: 13px; }
+  input[type=search]:focus, input[type=text]:focus, select:focus { outline: none; border-color: var(--accent); }
   label.row { display: flex; align-items: center; gap: 8px; font-size: 13px; margin: 6px 0; cursor: pointer; user-select: none; }
   input[type=range] { width: 100%; }
   #search-results { margin-top: 8px; max-height: 220px; overflow-y: auto; }
   .result { padding: 6px 8px; font-size: 13px; cursor: pointer; border-radius: 4px; display: flex; justify-content: space-between; align-items: center; }
-  .result:hover { background: var(--panel-2); }
+  .result:hover, .result.active { background: var(--panel-2); }
+  .result.active { border: 1px solid var(--accent); }
   .result .deg { color: var(--muted); font-size: 11px; }
   .result.profiled { color: var(--accent); }
   #cy { background: radial-gradient(ellipse at center, #161823 0%, #0a0b10 100%); }
@@ -45,20 +47,28 @@
   .dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
   .arrow { width: 24px; height: 2px; background: var(--muted); position: relative; }
   .arrow::after { content: ''; position: absolute; right: -1px; top: -3px; border-left: 6px solid var(--muted); border-top: 4px solid transparent; border-bottom: 4px solid transparent; }
+  .arrow.path { background: var(--path); }
+  .arrow.path::after { border-left-color: var(--path); }
   #details .empty { color: var(--muted); font-size: 13px; font-style: italic; padding-top: 40px; text-align: center; }
   #details h3 { margin: 0 0 4px 0; font-size: 20px; }
   #details a.am-link { color: var(--accent-2); font-size: 12px; text-decoration: none; }
   #details a.am-link:hover { text-decoration: underline; }
   .pill { display: inline-block; background: var(--panel-2); border: 1px solid var(--border); padding: 3px 8px; border-radius: 12px; font-size: 11px; margin-right: 4px; color: var(--muted); }
   .pill.hi { background: rgba(180,120,255,.15); border-color: var(--accent); color: var(--accent); }
+  .pill.path { background: rgba(255,138,76,.15); border-color: var(--path); color: var(--path); }
   .artist-list { max-height: 180px; overflow-y: auto; border: 1px solid var(--border); border-radius: 6px; background: var(--panel-2); }
   .artist-list .item { padding: 6px 10px; font-size: 12px; cursor: pointer; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; }
   .artist-list .item:last-child { border-bottom: none; }
   .artist-list .item:hover { background: rgba(180,120,255,.08); color: var(--accent); }
   .artist-list .item .profiled-tag { font-size: 9px; padding: 1px 5px; border-radius: 3px; background: var(--accent); color: #000; }
-  .toolbar { position: absolute; top: 12px; right: 380px; display: flex; gap: 6px; z-index: 10; }
+  .list-actions { display: flex; gap: 6px; margin: 6px 0 8px 0; }
+  .list-actions .btn { flex: 1; padding: 4px 8px; font-size: 11px; }
+  .toolbar { position: absolute; top: 12px; right: 380px; display: flex; gap: 6px; z-index: 10; flex-wrap: wrap; max-width: calc(100vw - 720px); }
   .btn { background: var(--panel); border: 1px solid var(--border); color: var(--text); padding: 6px 12px; font-size: 12px; border-radius: 6px; cursor: pointer; }
   .btn:hover { background: var(--panel-2); border-color: var(--accent); }
+  .btn.primary { background: rgba(180,120,255,.15); border-color: var(--accent); color: var(--accent); }
+  .btn.primary:hover { background: rgba(180,120,255,.25); }
+  .btn.tiny { padding: 3px 8px; font-size: 11px; }
   .center-msg { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: var(--muted); pointer-events: none; font-size: 14px; }
   #loading { display: flex; align-items: center; gap: 10px; }
   .spinner { width: 16px; height: 16px; border: 2px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; }
@@ -93,6 +103,84 @@
   .count-bars { display: flex; gap: 4px; align-items: center; font-size: 11px; color: var(--muted); margin-top: 4px; }
   .bar { height: 4px; background: var(--panel-2); border-radius: 2px; flex: 1; overflow: hidden; }
   .bar > span { display: block; height: 100%; background: var(--accent); }
+  .bar.in > span { background: var(--accent-2); }
+
+  /* Hover tooltip */
+  #tooltip {
+    position: fixed; z-index: 100; pointer-events: none;
+    background: var(--panel); border: 1px solid var(--accent);
+    padding: 8px 10px; border-radius: 6px; font-size: 12px;
+    max-width: 220px; box-shadow: 0 4px 18px rgba(0,0,0,.5);
+    display: none;
+  }
+  #tooltip .name { font-weight: bold; color: var(--accent); margin-bottom: 4px; }
+  #tooltip .meta { color: var(--muted); font-size: 11px; }
+  #tooltip .meta strong { color: var(--text); }
+
+  /* Breadcrumb trail of recent selections */
+  #trail { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 10px; min-height: 0; }
+  #trail:empty { display: none; }
+  .trail-chip {
+    background: var(--panel-2); border: 1px solid var(--border);
+    padding: 3px 8px; border-radius: 12px; font-size: 11px;
+    cursor: pointer; color: var(--muted);
+    display: inline-flex; align-items: center; gap: 4px;
+  }
+  .trail-chip:hover { color: var(--accent); border-color: var(--accent); }
+  .trail-chip.current { color: var(--accent); border-color: var(--accent); background: rgba(180,120,255,.12); }
+  .trail-chip .x { color: var(--muted); font-size: 10px; }
+  .trail-chip .x:hover { color: var(--hi); }
+
+  /* Sparkline for degree */
+  .sparkline { display: flex; align-items: flex-end; gap: 3px; height: 22px; margin: 6px 0 4px 0; }
+  .sparkline .col { flex: 1; background: var(--panel-2); border-radius: 2px 2px 0 0; min-height: 2px; position: relative; }
+  .sparkline .col.in { background: var(--accent-2); }
+  .sparkline .col.out { background: var(--accent); }
+  .sparkline-labels { display: flex; gap: 3px; font-size: 10px; color: var(--muted); }
+  .sparkline-labels span { flex: 1; text-align: center; }
+
+  /* Modal overlay (tours) */
+  .modal-backdrop {
+    position: fixed; inset: 0; background: rgba(0,0,0,.55);
+    z-index: 200; display: none; align-items: center; justify-content: center;
+  }
+  .modal-backdrop.open { display: flex; }
+  .modal {
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: 8px; padding: 18px 20px; max-width: 420px; width: 90%;
+  }
+  .modal h2 { margin-top: 0; color: var(--text); font-size: 16px; }
+  .modal .blurb { color: var(--muted); font-size: 12px; line-height: 1.5; margin: 6px 0 12px 0; }
+  .modal .tour-list { display: flex; flex-direction: column; gap: 6px; }
+  .modal .tour-list .btn { text-align: left; }
+  .modal .footer { display: flex; justify-content: flex-end; gap: 6px; margin-top: 14px; }
+
+  /* Tour step navigation */
+  .tour-nav { display: flex; align-items: center; justify-content: space-between; gap: 6px; margin: 10px 0; }
+  .tour-nav .step { font-size: 12px; color: var(--muted); }
+  .tour-nav .step strong { color: var(--accent); }
+  .tour-blurb {
+    background: var(--panel-2); border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    padding: 8px 10px; font-size: 12px; line-height: 1.5;
+    color: var(--text); border-radius: 4px; margin: 8px 0;
+  }
+
+  /* Toast for ephemeral feedback ("Link copied!") */
+  #toast {
+    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+    background: var(--panel); border: 1px solid var(--accent);
+    color: var(--accent); padding: 8px 14px; border-radius: 6px;
+    font-size: 12px; z-index: 300; pointer-events: none;
+    opacity: 0; transition: opacity .2s;
+  }
+  #toast.show { opacity: 1; }
+
+  /* Cytoscape styling extensions */
+  .appearing { opacity: 0; }
+  .path-node { border-width: 3px; border-color: var(--path) !important; }
+  .path-edge { line-color: var(--path) !important; target-arrow-color: var(--path) !important; width: 3px !important; opacity: 1 !important; z-index: 20; }
+  .path-end { border-width: 4px; border-color: var(--hi) !important; }
 </style>
 </head>
 <body>
@@ -137,11 +225,12 @@
     <div class="legend-item"><span class="dot" style="background:#b478ff"></span> Profiled (full data)</div>
     <div class="legend-item"><span class="dot" style="background:#5a5f70"></span> Unprofiled (referenced only)</div>
     <div class="legend-item"><span class="arrow"></span> &nbsp;Direction of influence</div>
+    <div class="legend-item"><span class="arrow path"></span> &nbsp;Influence path</div>
     <div class="legend-item">Node size = total connections</div>
 
     <h2>Tips</h2>
     <div style="font-size:12px; color:var(--muted); line-height:1.5">
-      Drag the canvas to pan · scroll to zoom · click a node for details · double-click to focus the ego network.
+      Drag to pan · scroll to zoom · click for details · <strong>double-click</strong> to focus ego network · <strong>Esc</strong> to back out · <strong>/</strong> to search.
     </div>
   </aside>
 
@@ -150,12 +239,16 @@
     <div class="toolbar">
       <button class="btn" id="btn-fit">Fit view</button>
       <button class="btn" id="btn-relayout">Re-layout</button>
+      <button class="btn" id="btn-lucky">🎲 Lucky artist</button>
+      <button class="btn" id="btn-tour">🎵 Tour</button>
+      <button class="btn" id="btn-path">Find path…</button>
+      <button class="btn" id="btn-copy" title="Copy a shareable link to this view">Copy link</button>
     </div>
     <div class="center-msg" id="loading"><div class="spinner"></div> Building graph…</div>
   </main>
 
   <aside class="panel" id="right">
-    <h2>Selected artist</h2>
+    <div id="trail"></div>
     <div id="details">
       <div class="empty">Click any node to see details.</div>
     </div>
@@ -163,17 +256,98 @@
 
 </div>
 
+<div id="tooltip"></div>
+<div id="toast"></div>
+
+<div class="modal-backdrop" id="modal-tours">
+  <div class="modal">
+    <h2>Take a tour</h2>
+    <div class="blurb">Curated walks through the influence graph. Each step focuses an artist's ego network and shows a short blurb.</div>
+    <div class="tour-list" id="tour-list"></div>
+    <div class="footer">
+      <button class="btn" id="btn-close-tours">Close</button>
+    </div>
+  </div>
+</div>
+
 <script>
 const NETWORK_DATA = __DATA_PLACEHOLDER__;
 
+/* ---------------------------------------------------------------------------
+ * Stats
+ * ------------------------------------------------------------------------ */
 document.getElementById('stat-profiled').textContent = NETWORK_DATA.metadata.profiledArtists.toLocaleString();
 document.getElementById('stat-total').textContent = NETWORK_DATA.metadata.totalArtistNodes.toLocaleString();
 document.getElementById('stat-edges').textContent = NETWORK_DATA.metadata.totalInfluenceEdges.toLocaleString();
 document.getElementById('opt-profiled').textContent = `Profiled artists only (${NETWORK_DATA.metadata.profiledArtists.toLocaleString()})`;
 document.getElementById('opt-all').textContent = `Full network (${NETWORK_DATA.metadata.totalArtistNodes.toLocaleString()})`;
 
+/* ---------------------------------------------------------------------------
+ * Data indices (built once)
+ * ------------------------------------------------------------------------ */
 const nodeIndex = new Map(NETWORK_DATA.nodes.map(n => [n.id, n]));
 
+// adjacency: { nodeId -> [ {neighbor, dir, viaProfile} ] }  (undirected for path-finding)
+const adjacency = new Map();
+for (const id of nodeIndex.keys()) adjacency.set(id, []);
+for (const e of NETWORK_DATA.edges) {
+  if (!nodeIndex.has(e.s) || !nodeIndex.has(e.t)) continue;
+  adjacency.get(e.s).push({ neighbor: e.t, dir: 'out' });
+  adjacency.get(e.t).push({ neighbor: e.s, dir: 'in' });
+}
+
+// directed adjacency for influence-path BFS
+const outAdj = new Map();
+const inAdj = new Map();
+for (const id of nodeIndex.keys()) { outAdj.set(id, []); inAdj.set(id, []); }
+for (const e of NETWORK_DATA.edges) {
+  if (!nodeIndex.has(e.s) || !nodeIndex.has(e.t)) continue;
+  outAdj.get(e.s).push(e.t);
+  inAdj.get(e.t).push(e.s);
+}
+
+// BFS shortest path. `directed`:
+//   - 'out'  : only follow source->target edges (influence flows forward)
+//   - 'in'   : only follow target->source edges (influence flows backward)
+//   - 'any'  : undirected (for when no directed path exists)
+function bfsPath(from, to, mode) {
+  if (from === to) return [from];
+  const adj = mode === 'out' ? outAdj : mode === 'in' ? inAdj : adjacency;
+  const visited = new Set([from]);
+  const prev = new Map();
+  const queue = [from];
+  while (queue.length) {
+    const cur = queue.shift();
+    const neighbors = adj.get(cur) || [];
+    for (const entry of neighbors) {
+      const next = typeof entry === 'string' ? entry : entry.neighbor;
+      if (visited.has(next)) continue;
+      visited.add(next);
+      prev.set(next, cur);
+      if (next === to) {
+        const path = [to];
+        let n = to;
+        while (prev.has(n)) { n = prev.get(n); path.unshift(n); }
+        return path;
+      }
+      queue.push(next);
+    }
+  }
+  return null;
+}
+
+// Find the best mode for a path: try 'out' first (forward influence), fall back to 'any'.
+function findPath(from, to) {
+  const directed = bfsPath(from, to, 'out');
+  if (directed) return { path: directed, mode: 'out' };
+  const undirected = bfsPath(from, to, 'any');
+  if (undirected) return { path: undirected, mode: 'any' };
+  return null;
+}
+
+/* ---------------------------------------------------------------------------
+ * Visual helpers
+ * ------------------------------------------------------------------------ */
 function sizeFor(node) {
   const total = node.inDeg + node.outDeg;
   return Math.min(70, 10 + Math.sqrt(total) * 4);
@@ -188,6 +362,66 @@ function colorFor(node) {
   return '#8c5cd6';
 }
 
+function escapeHtml(s) { return String(s).replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
+function escapeAttr(s) { return String(s).replace(/"/g, '&quot;'); }
+
+/* ---------------------------------------------------------------------------
+ * Cytoscape
+ * ------------------------------------------------------------------------ */
+const cy = cytoscape({
+  container: document.getElementById('cy'),
+  elements: [], wheelSensitivity: 0.25,
+  minZoom: 0.05, maxZoom: 4,
+  style: [
+    { selector: 'node', style: {
+        'background-color': 'data(color)',
+        'width': 'data(size)', 'height': 'data(size)',
+        'label': 'data(label)',
+        'color': '#e8e9ef', 'font-size': 10, 'text-outline-color': '#0e0f13', 'text-outline-width': 2,
+        'text-valign': 'bottom', 'text-margin-y': 4,
+        'min-zoomed-font-size': 8,
+        'border-width': 0,
+        'transition-property': 'background-color, width, height, border-color, border-width, opacity',
+        'transition-duration': '200ms',
+    }},
+    { selector: 'node[profiled = true]', style: { 'font-size': 12, 'font-weight': 'bold' } },
+    { selector: 'node:selected', style: { 'border-width': 3, 'border-color': '#ffce5c', 'font-size': 14, 'min-zoomed-font-size': 0 } },
+    { selector: 'node.appearing', style: { 'opacity': 0 } },
+    { selector: '.faded', style: { 'opacity': 0.08, 'text-opacity': 0 } },
+    { selector: '.highlight', style: { 'opacity': 1, 'border-width': 2, 'border-color': '#ffffff' } },
+    { selector: '.path-node', style: { 'border-width': 3, 'border-color': '#ff8a4c' } },
+    { selector: '.path-end', style: { 'border-width': 4, 'border-color': '#ffce5c' } },
+    { selector: 'edge', style: {
+        'width': 1, 'line-color': '#3b3f4d', 'curve-style': 'bezier',
+        'target-arrow-color': '#3b3f4d', 'target-arrow-shape': 'triangle', 'arrow-scale': 0.7,
+        'opacity': 0.55,
+        'transition-property': 'line-color, target-arrow-color, width, opacity',
+        'transition-duration': '200ms',
+    }},
+    { selector: 'edge.highlight-in', style: { 'line-color': '#6ec3ff', 'target-arrow-color': '#6ec3ff', 'width': 2, 'opacity': 1, 'z-index': 10 } },
+    { selector: 'edge.highlight-out', style: { 'line-color': '#b478ff', 'target-arrow-color': '#b478ff', 'width': 2, 'opacity': 1, 'z-index': 10 } },
+    { selector: 'edge.path-edge', style: { 'line-color': '#ff8a4c', 'target-arrow-color': '#ff8a4c', 'width': 3, 'opacity': 1, 'z-index': 20 } },
+  ],
+});
+
+/* ---------------------------------------------------------------------------
+ * App state
+ * ------------------------------------------------------------------------ */
+let currentMode = 'profiled';
+let currentFocus = null;
+let selectedId = null;
+let trail = [];           // history of selected artist names (most recent last)
+let pathState = null;     // current path overlay: {nodes, edges, mode}
+let lastLayoutPositions = new Map(); // nodeId -> {x, y} captured after every layout
+
+function setBusy(busy) {
+  document.getElementById('loading').style.display = busy ? 'flex' : 'none';
+  document.getElementById('header-blinker').classList.toggle('active', busy);
+}
+
+/* ---------------------------------------------------------------------------
+ * Build elements for current view
+ * ------------------------------------------------------------------------ */
 function buildElements(mode, opts) {
   const showUnprofiled = opts.showUnprofiled;
   const minDeg = opts.minDeg;
@@ -239,101 +473,117 @@ function buildElements(mode, opts) {
   return { nodes, edges };
 }
 
-const style = [
-  { selector: 'node', style: {
-      'background-color': 'data(color)',
-      'width': 'data(size)', 'height': 'data(size)',
-      'label': 'data(label)',
-      'color': '#e8e9ef', 'font-size': 10, 'text-outline-color': '#0e0f13', 'text-outline-width': 2,
-      'text-valign': 'bottom', 'text-margin-y': 4,
-      'min-zoomed-font-size': 8,
-      'border-width': 0,
-  }},
-  { selector: 'node[profiled = true]', style: { 'font-size': 12, 'font-weight': 'bold' } },
-  { selector: 'node:selected', style: { 'border-width': 3, 'border-color': '#ffce5c', 'font-size': 14, 'min-zoomed-font-size': 0 } },
-  { selector: '.faded', style: { 'opacity': 0.08, 'text-opacity': 0 } },
-  { selector: '.highlight', style: { 'opacity': 1, 'border-width': 2, 'border-color': '#ffffff' } },
-  { selector: 'edge', style: {
-      'width': 1, 'line-color': '#3b3f4d', 'curve-style': 'bezier',
-      'target-arrow-color': '#3b3f4d', 'target-arrow-shape': 'triangle', 'arrow-scale': 0.7,
-      'opacity': 0.55,
-  }},
-  { selector: 'edge.highlight-in', style: { 'line-color': '#6ec3ff', 'target-arrow-color': '#6ec3ff', 'width': 2, 'opacity': 1, 'z-index': 10 } },
-  { selector: 'edge.highlight-out', style: { 'line-color': '#b478ff', 'target-arrow-color': '#b478ff', 'width': 2, 'opacity': 1, 'z-index': 10 } },
-];
-
-const cy = cytoscape({
-  container: document.getElementById('cy'),
-  elements: [], style, wheelSensitivity: 0.25,
-  minZoom: 0.05, maxZoom: 4,
-});
-
-let currentMode = 'profiled';
-let currentFocus = null;
-
-function setBusy(busy) {
-  document.getElementById('loading').style.display = busy ? 'flex' : 'none';
-  document.getElementById('header-blinker').classList.toggle('active', busy);
+/* ---------------------------------------------------------------------------
+ * Rebuild / incremental update
+ *
+ * - First load and explicit "Re-layout" run fcose from scratch.
+ * - All other rebuilds (filter, view mode, focus) preserve existing positions
+ *   via `fixedNodeConstraint` + `randomize: false` so the graph doesn't
+ *   reshuffle. Newly added nodes get a `appearing` class that fades in.
+ * ------------------------------------------------------------------------ */
+function snapshotPositions() {
+  lastLayoutPositions = new Map();
+  cy.nodes().forEach(n => {
+    const p = n.position();
+    if (Number.isFinite(p.x) && Number.isFinite(p.y)) {
+      lastLayoutPositions.set(n.id(), { x: p.x, y: p.y });
+    }
+  });
 }
 
-function rebuild(animateLayout = true) {
+function fixedConstraintsFor(keepIds) {
+  const out = [];
+  for (const id of keepIds) {
+    const p = lastLayoutPositions.get(id);
+    if (p) out.push({ nodeId: id, position: p });
+  }
+  return out;
+}
+
+let firstBuild = true;
+function rebuild(animateLayout = true, forceFullLayout = false) {
   setBusy(true);
   setTimeout(() => {
-    const { nodes, edges } = buildElements(currentMode, {
+    const { nodes: newNodes, edges: newEdges } = buildElements(currentMode, {
       showUnprofiled: document.getElementById('filter-show-unprofiled').checked,
       minDeg: parseInt(document.getElementById('deg-filter').value, 10),
       focusId: currentFocus,
     });
-    cy.elements().remove();
-    cy.add(nodes); cy.add(edges);
-    document.getElementById('stat-visible').textContent = nodes.length.toLocaleString();
+    const newNodeIds = new Set(newNodes.map(n => n.data.id));
+    const newEdgeIds = new Set(newEdges.map(e => e.data.id));
 
-    const layoutName = nodes.length > 800 ? 'fcose' : 'fcose';
-    const layout = cy.layout({
+    // Decide whether to do a full layout or an incremental update.
+    // Full layout when: first build, forced, or this is a new view mode (profiled/all/ego
+    // switching) where the surviving node set changes substantially.
+    const oldNodeIds = new Set(cy.nodes().map(n => n.id()));
+    const overlap = [...newNodeIds].filter(id => oldNodeIds.has(id)).length;
+    const overlapRatio = oldNodeIds.size ? overlap / oldNodeIds.size : 0;
+    const doFullLayout = firstBuild || forceFullLayout || (oldNodeIds.size > 0 && overlapRatio < 0.5);
+
+    // Capture positions before tearing down so the new layout can seed from them.
+    if (!doFullLayout) snapshotPositions();
+
+    // Compute the set of nodes that will survive the rebuild (for fixedNodeConstraint).
+    const keepIds = [...newNodeIds].filter(id => oldNodeIds.has(id));
+
+    cy.elements().remove();
+
+    // Pre-set positions for nodes that already had one so the new layout doesn't move them.
+    if (!doFullLayout) {
+      for (const n of newNodes) {
+        const p = lastLayoutPositions.get(n.data.id);
+        if (p) n.position = p;
+      }
+    }
+
+    cy.add(newNodes);
+    cy.add(newEdges);
+
+    // Mark newly added nodes for fade-in.
+    const added = cy.nodes().filter(n => !keepIds.includes(n.id()));
+    added.addClass('appearing');
+
+    document.getElementById('stat-visible').textContent = cy.nodes().length.toLocaleString();
+
+    const layoutOpts = {
       name: 'fcose',
-      animate: animateLayout && nodes.length < 1500,
+      animate: animateLayout && cy.nodes().length < 1500,
       animationDuration: 600,
-      randomize: true,
-      nodeRepulsion: nodes.length > 500 ? 4000 : 8000,
-      idealEdgeLength: nodes.length > 500 ? 60 : 100,
+      randomize: doFullLayout,
+      nodeRepulsion: cy.nodes().length > 500 ? 4000 : 8000,
+      idealEdgeLength: cy.nodes().length > 500 ? 60 : 100,
       edgeElasticity: 0.45,
       gravity: 0.25,
-      numIter: nodes.length > 1500 ? 1500 : 2500,
+      numIter: cy.nodes().length > 1500 ? 1500 : 2500,
       tile: true,
-      packComponents: true,
-      quality: nodes.length > 1500 ? 'draft' : 'default',
-      fit: true, padding: 40,
-    });
+      packComponents: doFullLayout, // packing only matters when we're laying out from scratch
+      quality: cy.nodes().length > 1500 ? 'draft' : 'default',
+      fit: doFullLayout,           // don't reset zoom/pan on incremental updates
+      padding: 40,
+    };
+    if (!doFullLayout && keepIds.length) {
+      layoutOpts.fixedNodeConstraint = fixedConstraintsFor(keepIds);
+    }
+    const layout = cy.layout(layoutOpts);
     layout.one('layoutstop', () => {
+      added.removeClass('appearing');
+      snapshotPositions();
       setBusy(false);
+      firstBuild = false;
+      pushUrlState();
     });
     layout.run();
   }, 30);
 }
 
-cy.on('tap', 'node', (evt) => {
-  const n = evt.target;
-  selectArtist(n.id());
-});
-
-cy.on('dbltap', 'node', (evt) => {
-  currentFocus = evt.target.id();
-  currentMode = 'ego';
-  document.getElementById('view-mode').value = 'ego';
-  rebuild();
-});
-
-cy.on('tap', (evt) => {
-  if (evt.target === cy) {
-    cy.elements().removeClass('faded highlight highlight-in highlight-out');
-    showEmptyDetails();
-  }
-});
-
+/* ---------------------------------------------------------------------------
+ * Selection / focus / highlight
+ * ------------------------------------------------------------------------ */
 function highlightNeighborhood(id) {
   const node = cy.getElementById(id);
   if (node.empty()) return;
-  cy.elements().addClass('faded').removeClass('highlight highlight-in highlight-out');
+  cy.elements().removeClass('faded highlight highlight-in highlight-out');
+  if (pathState) drawPathOverlay(pathState.path, pathState.mode);  // re-apply path styling on top
   node.removeClass('faded').addClass('highlight');
   node.connectedEdges().forEach(e => {
     e.removeClass('faded');
@@ -344,14 +594,166 @@ function highlightNeighborhood(id) {
   });
 }
 
-function selectArtist(id) {
-  highlightNeighborhood(id);
-  cy.animate({ center: { eles: cy.getElementById(id) }, zoom: Math.max(cy.zoom(), 1.2) }, { duration: 400 });
-  renderDetails(id);
+function clearHighlight() {
+  cy.elements().removeClass('faded highlight highlight-in highlight-out');
 }
 
+function selectArtist(id, opts = {}) {
+  if (!id || !nodeIndex.has(id)) return;
+  selectedId = id;
+
+  // If the node isn't in the current graph, jump to 'all' view.
+  if (cy.getElementById(id).empty()) {
+    currentMode = 'all';
+    document.getElementById('view-mode').value = 'all';
+    rebuild();
+    setTimeout(() => selectArtist(id, opts), 250);
+    return;
+  }
+
+  // Track trail (de-dup, keep most recent at end, cap at 8).
+  trail = trail.filter(x => x !== id);
+  trail.push(id);
+  if (trail.length > 8) trail = trail.slice(trail.length - 8);
+  renderTrail();
+
+  // Center + zoom, but only if the user didn't just pan/zoom in the last second.
+  highlightNeighborhood(id);
+  if (!opts.skipCenter) {
+    cy.animate({ center: { eles: cy.getElementById(id) }, zoom: Math.max(cy.zoom(), 1.2) }, { duration: 400 });
+  }
+  renderDetails(id);
+  pushUrlState();
+}
+
+/* ---------------------------------------------------------------------------
+ * Path overlay
+ * ------------------------------------------------------------------------ */
+function drawPathOverlay(pathNodes, mode) {
+  clearPathOverlay();
+  if (!pathNodes || pathNodes.length < 2) return;
+  const idSet = new Set(pathNodes);
+  pathNodes.forEach((id, i) => {
+    const n = cy.getElementById(id);
+    if (n.empty()) return;
+    n.addClass('path-node');
+    if (i === 0 || i === pathNodes.length - 1) n.addClass('path-end');
+  });
+  // Edges that are between consecutive path nodes and exist in the current graph.
+  for (let i = 0; i < pathNodes.length - 1; i++) {
+    const a = pathNodes[i], b = pathNodes[i + 1];
+    const e = cy.elements().filter(el => el.isEdge() &&
+      ((el.source().id() === a && el.target().id() === b) ||
+       (el.source().id() === b && el.target().id() === a)));
+    e.addClass('path-edge');
+  }
+  pathState = { path: pathNodes, mode };
+}
+
+function clearPathOverlay() {
+  cy.elements().removeClass('path-node path-end path-edge');
+  pathState = null;
+}
+
+/* ---------------------------------------------------------------------------
+ * Trail chips (recent selections)
+ * ------------------------------------------------------------------------ */
+function renderTrail() {
+  const el = document.getElementById('trail');
+  if (!trail.length) { el.innerHTML = ''; return; }
+  el.innerHTML = trail.map((name, i) => {
+    const cls = (i === trail.length - 1) ? 'trail-chip current' : 'trail-chip';
+    return `<span class="${cls}" data-artist="${escapeAttr(name)}" title="${escapeAttr(name)}">
+      <span class="lbl">${escapeHtml(name)}</span>
+      <span class="x" data-remove="${escapeAttr(name)}" title="Remove from trail">×</span>
+    </span>`;
+  }).join('');
+  el.querySelectorAll('.trail-chip .lbl').forEach(chip => {
+    chip.addEventListener('click', () => {
+      const name = chip.parentElement.getAttribute('data-artist');
+      selectArtist(name);
+    });
+  });
+  el.querySelectorAll('.trail-chip .x').forEach(x => {
+    x.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const name = x.getAttribute('data-remove');
+      trail = trail.filter(n => n !== name);
+      renderTrail();
+    });
+  });
+}
+
+/* ---------------------------------------------------------------------------
+ * Right panel
+ * ------------------------------------------------------------------------ */
 function showEmptyDetails() {
+  selectedId = null;
   document.getElementById('details').innerHTML = '<div class="empty">Click any node to see details.</div>';
+  pushUrlState();
+}
+
+function normalizeEntry(item) {
+  if (typeof item === 'string') {
+    const ref = nodeIndex.get(item);
+    return { name: item, href: ref && ref.url };
+  }
+  return { name: item.name, href: item.href || (nodeIndex.get(item.name) || {}).url };
+}
+
+function buildListHtml(arr) {
+  if (!arr.length) return '<div style="font-size:12px; color:var(--muted); padding:8px;">None recorded.</div>';
+  return '<div class="artist-list">' + arr.map(raw => {
+    const { name, href } = normalizeEntry(raw);
+    const ref = nodeIndex.get(name);
+    const isProf = ref && ref.profiled;
+    const link = href ? `<a class="am-link" href="${escapeAttr(href)}" target="_blank" rel="noopener" title="Open external profile" onclick="event.stopPropagation()">↗</a>` : '';
+    return `<div class="item" data-artist="${escapeAttr(name)}">
+      <span>${escapeHtml(name)}</span>
+      <span style="display:inline-flex; gap:6px; align-items:center;">
+        ${isProf ? '<span class="profiled-tag">PROFILED</span>' : ''}
+        ${link}
+      </span>
+    </div>`;
+  }).join('') + '</div>';
+}
+
+function sparklineHtml(meta) {
+  // Scale bars to the larger of in/out so the smaller is still visible.
+  const peak = Math.max(meta.inDeg, meta.outDeg, 1);
+  const inPct = Math.max(4, Math.round((meta.inDeg / peak) * 100));
+  const outPct = Math.max(4, Math.round((meta.outDeg / peak) * 100));
+  return `<div class="sparkline">
+    <div class="col in" style="height:${inPct}%" title="Influencers: ${meta.inDeg}"></div>
+    <div class="col out" style="height:${outPct}%" title="Influenced: ${meta.outDeg}"></div>
+  </div>
+  <div class="sparkline-labels">
+    <span>${meta.inDeg} in</span>
+    <span>${meta.outDeg} out</span>
+  </div>`;
+}
+
+function followThread(id) {
+  // Pick the neighbor (in or out) with the highest total degree. Ties broken toward 'out' (descendants)
+  // since following influence forward is usually the more interesting journey.
+  const candidates = [];
+  for (const e of NETWORK_DATA.edges) {
+    if (e.s === id) candidates.push({ name: e.t, dir: 'out' });
+    if (e.t === id) candidates.push({ name: e.s, dir: 'in' });
+  }
+  if (!candidates.length) return null;
+  // Dedupe by name, summing degree contributions.
+  const seen = new Map();
+  for (const c of candidates) {
+    const m = nodeIndex.get(c.name);
+    if (!m) continue;
+    const prev = seen.get(c.name) || { name: c.name, dir: c.dir, deg: 0 };
+    prev.deg = m.inDeg + m.outDeg;
+    seen.set(c.name, prev);
+  }
+  const arr = [...seen.values()];
+  arr.sort((a, b) => (b.deg - a.deg) || (a.dir === 'out' ? -1 : 1));
+  return arr[0].name;
 }
 
 function renderDetails(id) {
@@ -363,51 +765,46 @@ function renderDetails(id) {
   const influencedBy = (profile && profile.influencedBy) || [];
   const influenced = (profile && profile.influenced) || [];
 
-  // Normalize an entry into {name, href}. Accepts strings or {name, href} objects.
-  const normalize = (item) => {
-    if (typeof item === 'string') {
-      const ref = nodeIndex.get(item);
-      return { name: item, href: ref && ref.url };
-    }
-    return { name: item.name, href: item.href || (nodeIndex.get(item.name) || {}).url };
-  };
-
-  const buildList = (arr) => {
-    if (!arr.length) return '<div style="font-size:12px; color:var(--muted); padding:8px;">None recorded.</div>';
-    return '<div class="artist-list">' + arr.map(raw => {
-      const { name, href } = normalize(raw);
-      const ref = nodeIndex.get(name);
-      const isProf = ref && ref.profiled;
-      const link = href ? `<a class="am-link" href="${escapeAttr(href)}" target="_blank" rel="noopener" title="Open external profile" onclick="event.stopPropagation()">↗</a>` : '';
-      return `<div class="item" data-artist="${escapeAttr(name)}">
-        <span>${escapeHtml(name)}</span>
-        <span style="display:inline-flex; gap:6px; align-items:center;">
-          ${isProf ? '<span class="profiled-tag">PROFILED</span>' : ''}
-          ${link}
-        </span>
-      </div>`;
-    }).join('') + '</div>';
-  };
-
   const inflPill = meta.profiled ? '<span class="pill hi">Profiled</span>' : '<span class="pill">Referenced only</span>';
+  const threadName = followThread(id);
+  const threadHtml = threadName
+    ? `<button class="btn tiny primary" id="btn-thread" style="margin-top:8px">Follow the thread → ${escapeHtml(threadName)}</button>`
+    : '';
 
+  // "Show only these" / "Hide these" actions — only for profiled lists (the unprofiled fallback
+  // builds from edges and is always consistent with the graph, so there's nothing to filter).
   let html = `
     <h3>${escapeHtml(id)}</h3>
-    <div style="margin-bottom:10px">${inflPill}
+    <div style="margin-bottom:10px; display:flex; align-items:center; gap:6px; flex-wrap:wrap;">
+      ${inflPill}
       ${meta.url ? `<a class="am-link" href="${escapeAttr(meta.url)}" target="_blank" rel="noopener">Open profile ↗</a>` : ''}
     </div>
     <div class="stat-grid">
       <div class="stat"><div class="v">${meta.inDeg}</div><div class="l">Influencers</div></div>
       <div class="stat"><div class="v">${meta.outDeg}</div><div class="l">Influenced</div></div>
     </div>
+    ${sparklineHtml(meta)}
+    <div style="display:flex; gap:6px; margin-top:8px; flex-wrap:wrap;">
+      <button class="btn tiny" id="btn-focus" title="Show this artist and their immediate neighbors">Focus ego</button>
+      <button class="btn tiny" id="btn-from" title="Start a 'Find path' from this artist">Path from here</button>
+    </div>
+    ${threadHtml}
   `;
 
   if (meta.profiled) {
     html += `
       <h2>Influenced by (${influencedBy.length})</h2>
-      ${buildList(influencedBy)}
+      <div class="list-actions" data-list="influencedBy">
+        <button class="btn" data-action="only">Show only these</button>
+        <button class="btn" data-action="hide">Hide these</button>
+      </div>
+      ${buildListHtml(influencedBy)}
       <h2>Influenced (${influenced.length})</h2>
-      ${buildList(influenced)}
+      <div class="list-actions" data-list="influenced">
+        <button class="btn" data-action="only">Show only these</button>
+        <button class="btn" data-action="hide">Hide these</button>
+      </div>
+      ${buildListHtml(influenced)}
     `;
   } else {
     const influencers = [], influencedArt = [];
@@ -420,67 +817,435 @@ function renderDetails(id) {
         Influence lists below come from edges to profiled artists.
       </div>
       <h2>Known influencers (${influencers.length})</h2>
-      ${buildList(influencers)}
+      ${buildListHtml(influencers)}
       <h2>Known influenced (${influencedArt.length})</h2>
-      ${buildList(influencedArt)}
+      ${buildListHtml(influencedArt)}
     `;
   }
 
+  // If a path currently exists that involves this artist, show its interpretation.
+  if (pathState) html += renderPathSummary(id);
+
   root.innerHTML = html;
+  wireDetailsListeners(id, { influencedBy, influenced });
+}
+
+function renderPathSummary(id) {
+  if (!pathState) return '';
+  const { path, mode } = pathState;
+  const idx = path.indexOf(id);
+  if (idx === -1) return '';
+  const direction = mode === 'out' ? 'forward influence' : mode === 'in' ? 'reverse influence' : 'shortest through-the-graph route';
+  let html = `<h2>Path</h2>
+    <div class="tour-blurb" style="border-left-color: var(--path)">
+      ${path.map((n, i) => {
+        const sep = i < path.length - 1 ? ' <span style="color:var(--path)">→</span> ' : '';
+        const cur = i === idx;
+        return `<span style="${cur ? 'color:var(--hi); font-weight:bold' : ''}">${escapeHtml(n)}</span>${sep}`;
+      }).join('')}
+      <div style="font-size:11px; color:var(--muted); margin-top:6px">
+        ${path.length - 1} step${path.length - 1 === 1 ? '' : 's'} · ${direction}
+      </div>
+    </div>
+    <button class="btn tiny" id="btn-clear-path">Clear path</button>`;
+  return html;
+}
+
+function wireDetailsListeners(id, lists) {
+  const root = document.getElementById('details');
+
+  document.getElementById('btn-focus')?.addEventListener('click', () => {
+    currentFocus = id;
+    currentMode = 'ego';
+    document.getElementById('view-mode').value = 'ego';
+    rebuild();
+    setTimeout(() => selectArtist(id, { skipCenter: true }), 250);
+  });
+
+  document.getElementById('btn-from')?.addEventListener('click', () => {
+    openPathFinder(id);
+  });
+
+  document.getElementById('btn-thread')?.addEventListener('click', () => {
+    const next = followThread(id);
+    if (next) selectArtist(next);
+  });
+
+  document.getElementById('btn-clear-path')?.addEventListener('click', () => {
+    clearPathOverlay();
+    if (selectedId) renderDetails(selectedId); else showEmptyDetails();
+  });
+
+  // Show only / hide these
+  root.querySelectorAll('.list-actions').forEach(actions => {
+    const which = actions.getAttribute('data-list');
+    const arr = lists[which] || [];
+    const names = arr.map(normalizeEntry).map(x => x.name);
+    actions.querySelectorAll('button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const action = btn.getAttribute('data-action');
+        if (action === 'only') showOnlyThese(names);
+        else if (action === 'hide') hideThese(names);
+      });
+    });
+  });
+
   root.querySelectorAll('.artist-list .item').forEach(el => {
     el.addEventListener('click', () => {
       const name = el.getAttribute('data-artist');
-      const n = cy.getElementById(name);
-      if (n.empty()) {
-        currentMode = 'all';
-        document.getElementById('view-mode').value = 'all';
-        rebuild();
-        setTimeout(() => selectArtist(name), 200);
-      } else {
-        selectArtist(name);
-      }
+      selectArtist(name);
     });
   });
 }
 
-function escapeHtml(s) { return String(s).replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
-function escapeAttr(s) { return String(s).replace(/"/g, '&quot;'); }
+function showOnlyThese(names) {
+  const keep = new Set([selectedId, ...names]);
+  // Switch to ego mode with the selected artist as focus, then manually restrict to the chosen set.
+  currentFocus = selectedId;
+  currentMode = 'ego';
+  document.getElementById('view-mode').value = 'ego';
+  // We piggyback on ego by overriding allowed nodes via a custom mode.
+  // Simpler: rebuild with a temporary mode that limits to keep ∪ neighbors of selectedId.
+  rebuildWithRestriction(keep, selectedId);
+}
 
-// Search box
+function hideThese(names) {
+  const drop = new Set(names);
+  // Filter current visible nodes: remove `drop` from the graph.
+  const current = cy.nodes().map(n => n.id());
+  const toRemove = current.filter(id => drop.has(id));
+  cy.remove(cy.elements().filter(el => toRemove.includes(el.id())));
+  document.getElementById('stat-visible').textContent = cy.nodes().length.toLocaleString();
+  pushUrlState();
+}
+
+function rebuildWithRestriction(keepSet, focusId) {
+  // Drop any node not in keepSet, then enter ego mode centered on focusId.
+  const current = cy.nodes().map(n => n.id());
+  const toRemove = current.filter(id => !keepSet.has(id));
+  cy.remove(cy.elements().filter(el => toRemove.includes(el.id())));
+  currentFocus = focusId;
+  currentMode = 'ego';
+  document.getElementById('view-mode').value = 'ego';
+  // Re-layout remaining nodes around the focus.
+  const layout = cy.layout({
+    name: 'fcose', animate: true, animationDuration: 500,
+    randomize: false, nodeRepulsion: 6000, idealEdgeLength: 80,
+    edgeElasticity: 0.45, gravity: 0.25, numIter: 1500,
+    fit: true, padding: 60,
+  });
+  layout.one('layoutstop', () => {
+    snapshotPositions();
+    selectArtist(focusId);
+  });
+  layout.run();
+}
+
+/* ---------------------------------------------------------------------------
+ * Search box
+ * ------------------------------------------------------------------------ */
 const searchInput = document.getElementById('search');
 const searchResults = document.getElementById('search-results');
-searchInput.addEventListener('input', () => {
-  const q = searchInput.value.trim().toLowerCase();
-  if (!q) { searchResults.innerHTML = ''; return; }
-  const matches = NETWORK_DATA.nodes
+let searchMatches = [];      // current visible matches (for j/k navigation)
+let searchActiveIdx = -1;    // keyboard cursor within searchMatches
+
+function runSearch(q) {
+  q = (q || '').trim().toLowerCase();
+  if (!q) { searchResults.innerHTML = ''; searchMatches = []; searchActiveIdx = -1; return; }
+  searchMatches = NETWORK_DATA.nodes
     .filter(n => n.id.toLowerCase().includes(q))
-    .sort((a, b) => (b.profiled - a.profiled) || ((b.inDeg + b.outDeg) - (a.inDeg + a.outDeg)))
+    .sort((a, b) => (b.profiled - a.profiled) || ((b.inDeg + b.outDeg) - (a.inDeg + b.outDeg)))
     .slice(0, 30);
-  searchResults.innerHTML = matches.map(m => `
-    <div class="result ${m.profiled ? 'profiled' : ''}" data-artist="${escapeAttr(m.id)}">
+  searchActiveIdx = searchMatches.length ? 0 : -1;
+  renderSearchResults();
+}
+
+function renderSearchResults() {
+  searchResults.innerHTML = searchMatches.map((m, i) => {
+    const cls = ['result', m.profiled ? 'profiled' : '', i === searchActiveIdx ? 'active' : ''].filter(Boolean).join(' ');
+    return `<div class="${cls}" data-artist="${escapeAttr(m.id)}" data-idx="${i}">
       <span>${escapeHtml(m.id)}</span>
       <span class="deg">${m.inDeg}→${m.outDeg}</span>
-    </div>
-  `).join('');
+    </div>`;
+  }).join('');
   searchResults.querySelectorAll('.result').forEach(el => {
     el.addEventListener('click', () => {
       const name = el.getAttribute('data-artist');
-      const n = cy.getElementById(name);
-      if (n.empty()) {
-        currentMode = 'all';
-        document.getElementById('view-mode').value = 'all';
-        rebuild();
-        setTimeout(() => selectArtist(name), 300);
-      } else {
-        selectArtist(name);
-      }
+      selectArtist(name);
+    });
+    el.addEventListener('mouseenter', () => {
+      searchActiveIdx = parseInt(el.getAttribute('data-idx'), 10);
+      searchResults.querySelectorAll('.result').forEach((r, j) => {
+        r.classList.toggle('active', j === searchActiveIdx);
+      });
     });
   });
+}
+
+searchInput.addEventListener('input', () => runSearch(searchInput.value));
+searchInput.addEventListener('focus', () => { if (searchInput.value) runSearch(searchInput.value); });
+
+/* ---------------------------------------------------------------------------
+ * Path finder
+ * ------------------------------------------------------------------------ */
+const pathModal = (() => {
+  let fromId = null;
+  let toId = null;
+  let fromQuery = '';
+  let toQuery = '';
+
+  function render() {
+    document.getElementById('details').innerHTML = `
+      <h3>Find path</h3>
+      <div class="blurb" style="color:var(--muted); font-size:12px; line-height:1.5; margin-bottom:10px">
+        Trace the shortest chain of influence between two artists. Edges follow forward influence where possible.
+      </div>
+      <h2>From</h2>
+      <input type="text" id="path-from" placeholder="Start typing an artist…" value="${escapeAttr(fromQuery)}" autocomplete="off">
+      <div id="path-from-results"></div>
+      ${fromId ? `<div style="font-size:12px; color:var(--muted); margin-top:4px">Selected: <span class="pill hi">${escapeHtml(fromId)}</span> <button class="btn tiny" id="path-from-clear">change</button></div>` : ''}
+      <h2>To</h2>
+      <input type="text" id="path-to" placeholder="Start typing an artist…" value="${escapeAttr(toQuery)}" autocomplete="off">
+      <div id="path-to-results"></div>
+      ${toId ? `<div style="font-size:12px; color:var(--muted); margin-top:4px">Selected: <span class="pill hi">${escapeHtml(toId)}</span> <button class="btn tiny" id="path-to-clear">change</button></div>` : ''}
+      <div style="display:flex; gap:6px; margin-top:14px;">
+        <button class="btn primary" id="path-go" ${(!fromId || !toId) ? 'disabled style="opacity:.5;cursor:not-allowed"' : ''}>Trace path</button>
+        <button class="btn" id="path-cancel">Cancel</button>
+      </div>
+    `;
+    wirePathModal();
+  }
+
+  function wirePathModal() {
+    const renderList = (input, resultsEl, pick) => {
+      const q = input.value.trim().toLowerCase();
+      if (!q) { resultsEl.innerHTML = ''; return; }
+      const matches = NETWORK_DATA.nodes
+        .filter(n => n.id.toLowerCase().includes(q))
+        .sort((a, b) => (b.profiled - a.profiled) || ((b.inDeg + b.outDeg) - (a.inDeg + b.outDeg)))
+        .slice(0, 8);
+      resultsEl.innerHTML = matches.map(m =>
+        `<div class="result" data-artist="${escapeAttr(m.id)}">
+          <span>${escapeHtml(m.id)}</span>
+          <span class="deg">${m.inDeg}→${m.outDeg}</span>
+        </div>`
+      ).join('');
+      resultsEl.querySelectorAll('.result').forEach(el => {
+        el.addEventListener('click', () => {
+          pick(el.getAttribute('data-artist'));
+        });
+      });
+    };
+    const fromInput = document.getElementById('path-from');
+    const toInput = document.getElementById('path-to');
+    if (fromInput) fromInput.addEventListener('input', () => {
+      fromQuery = fromInput.value;
+      renderList(fromInput, document.getElementById('path-from-results'), (name) => { fromId = name; render(); });
+    });
+    if (toInput) toInput.addEventListener('input', () => {
+      toQuery = toInput.value;
+      renderList(toInput, document.getElementById('path-to-results'), (name) => { toId = name; render(); });
+    });
+    document.getElementById('path-from-clear')?.addEventListener('click', () => { fromId = null; fromQuery = ''; render(); });
+    document.getElementById('path-to-clear')?.addEventListener('click', () => { toId = null; toQuery = ''; render(); });
+    document.getElementById('path-go')?.addEventListener('click', () => {
+      if (!fromId || !toId) return;
+      const result = findPath(fromId, toId);
+      if (!result) {
+        showToast(`No path between ${fromId} and ${toId} in the current graph.`);
+        return;
+      }
+      // Make sure both endpoints are in the current view.
+      const ensureInView = (id) => {
+        if (cy.getElementById(id).empty()) {
+          currentMode = 'all';
+          document.getElementById('view-mode').value = 'all';
+          rebuild();
+        }
+      };
+      ensureInView(fromId);
+      ensureInView(toId);
+      setTimeout(() => {
+        drawPathOverlay(result.path, result.mode);
+        selectArtist(fromId, { skipCenter: false });
+        showToast(`Path: ${result.path.length - 1} step${result.path.length - 1 === 1 ? '' : 's'} (${result.mode === 'out' ? 'forward influence' : 'through graph'})`);
+      }, 200);
+    });
+    document.getElementById('path-cancel')?.addEventListener('click', () => {
+      if (selectedId) renderDetails(selectedId); else showEmptyDetails();
+    });
+  }
+
+  return {
+    open(initialFrom) {
+      fromId = initialFrom || null;
+      toId = null;
+      fromQuery = initialFrom || '';
+      toQuery = '';
+      render();
+    },
+  };
+})();
+
+function openPathFinder(fromId) {
+  pathModal.open(fromId);
+}
+
+document.getElementById('btn-path').addEventListener('click', () => openPathFinder(null));
+
+/* ---------------------------------------------------------------------------
+ * Tours
+ * ------------------------------------------------------------------------ */
+const TOURS = [
+  {
+    name: 'Roots of Rock & Roll',
+    blurb: 'From the bluesmen and country pioneers of the late 1940s to the British Invasion, this tour follows the chain of artists who shaped the first wave of rock.',
+    artists: [
+      { name: 'Muddy Waters', blurb: 'Chicago blues founder whose electric sound defined modern blues.' },
+      { name: 'Chuck Berry', blurb: 'The first guitar hero — his riff-driven songs gave rock its template.' },
+      { name: 'Little Richard', blurb: 'Brought piano-driven dynamism and theatricality to the genre.' },
+      { name: 'Elvis Presley', blurb: 'Synthesized blues, country, and gospel into the first mass-market rock star.' },
+      { name: 'Buddy Holly', blurb: 'Songwriter who brought craft and melody to rock before his tragic early death.' },
+      { name: 'The Beatles', blurb: 'Absorbed American rock and R&B, then redefined what pop could be.' },
+    ],
+  },
+  {
+    name: 'Electronic Pioneers',
+    blurb: 'How synthesizers, sampling, and dance production reshaped popular music across five decades.',
+    artists: [
+      { name: 'Kraftwerk', blurb: 'German quartet that turned the synthesizer into a pop instrument.' },
+      { name: 'Brian Eno', blurb: 'Ambient pioneer whose production shaped Talking Heads, U2, and generations of electronic music.' },
+      { name: 'New Order', blurb: 'Carried Joy Division\'s post-punk into the dance club with sequencers and four-on-the-floor.' },
+      { name: 'Aphex Twin', blurb: 'Rewrote the rules of electronic composition with fractured, emotionally charged IDM.' },
+      { name: 'Daft Punk', blurb: 'Brought French house to global pop with disco-inflected robot anthems.' },
+    ],
+  },
+];
+
+let activeTour = null;   // {tour, step}
+
+function openTourModal() {
+  const list = document.getElementById('tour-list');
+  list.innerHTML = TOURS.map((t, i) => `
+    <button class="btn" data-tour="${i}">
+      <div style="font-weight:600; color:var(--text)">${escapeHtml(t.name)}</div>
+      <div style="font-size:11px; color:var(--muted); margin-top:2px">${t.artists.length} stops</div>
+    </button>
+  `).join('');
+  list.querySelectorAll('button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const idx = parseInt(btn.getAttribute('data-tour'), 10);
+      startTour(TOURS[idx]);
+      document.getElementById('modal-tours').classList.remove('open');
+    });
+  });
+  document.getElementById('modal-tours').classList.add('open');
+}
+
+document.getElementById('btn-tour').addEventListener('click', openTourModal);
+document.getElementById('btn-close-tours').addEventListener('click', () => {
+  document.getElementById('modal-tours').classList.remove('open');
 });
 
+function startTour(tour) {
+  activeTour = { tour, step: 0 };
+  goTourStep();
+}
+
+function goTourStep() {
+  if (!activeTour) return;
+  const { tour, step } = activeTour;
+  if (step >= tour.artists.length) {
+    activeTour = null;
+    showToast(`End of tour: ${tour.name}`);
+    return;
+  }
+  const a = tour.artists[step];
+  // Switch to ego mode at this artist so neighbors are visible.
+  currentFocus = a.name;
+  currentMode = 'ego';
+  document.getElementById('view-mode').value = 'ego';
+  rebuild();
+  setTimeout(() => {
+    selectArtist(a.name, { skipCenter: false });
+    renderTourPanel();
+  }, 250);
+}
+
+function renderTourPanel() {
+  if (!activeTour) return;
+  const { tour, step } = activeTour;
+  const a = tour.artists[step];
+  const root = document.getElementById('details');
+  root.innerHTML = `
+    <h3>${escapeHtml(tour.name)}</h3>
+    <div class="tour-blurb">${escapeHtml(tour.blurb)}</div>
+    <div class="tour-nav">
+      <button class="btn tiny" id="tour-prev" ${step === 0 ? 'disabled style="opacity:.5;cursor:not-allowed"' : ''}>← Prev</button>
+      <div class="step"><strong>${step + 1}</strong> / ${tour.artists.length}</div>
+      <button class="btn tiny" id="tour-next">${step === tour.artists.length - 1 ? 'Finish' : 'Next →'}</button>
+    </div>
+    <h2 style="color:var(--text); font-size:18px; text-transform:none; letter-spacing:0">${escapeHtml(a.name)}</h2>
+    <div class="tour-blurb">${escapeHtml(a.blurb)}</div>
+    <button class="btn tiny" id="tour-exit">Exit tour</button>
+  `;
+  document.getElementById('tour-prev')?.addEventListener('click', () => {
+    if (activeTour.step > 0) { activeTour.step--; goTourStep(); }
+  });
+  document.getElementById('tour-next')?.addEventListener('click', () => {
+    activeTour.step++;
+    if (activeTour.step >= activeTour.tour.artists.length) {
+      activeTour = null;
+      showToast(`End of tour`);
+      showEmptyDetails();
+    } else {
+      goTourStep();
+    }
+  });
+  document.getElementById('tour-exit')?.addEventListener('click', () => {
+    activeTour = null;
+    showEmptyDetails();
+  });
+}
+
+/* ---------------------------------------------------------------------------
+ * Hover tooltip
+ * ------------------------------------------------------------------------ */
+const tooltipEl = document.getElementById('tooltip');
+cy.on('mouseover', 'node', (evt) => {
+  const n = evt.target;
+  const meta = nodeIndex.get(n.id());
+  if (!meta) return;
+  const pill = meta.profiled ? '<span style="color:var(--accent)">Profiled</span>' : '<span style="color:var(--muted)">Referenced only</span>';
+  tooltipEl.innerHTML = `
+    <div class="name">${escapeHtml(n.id())}</div>
+    <div class="meta">${pill} · <strong>${meta.inDeg}</strong> influencers · <strong>${meta.outDeg}</strong> influenced</div>
+  `;
+  tooltipEl.style.display = 'block';
+});
+cy.on('mouseover', (evt) => {
+  if (evt.target === cy) tooltipEl.style.display = 'none';
+});
+document.addEventListener('mousemove', (e) => {
+  if (tooltipEl.style.display === 'block') {
+    const pad = 14;
+    let x = e.clientX + pad;
+    let y = e.clientY + pad;
+    const rect = tooltipEl.getBoundingClientRect();
+    if (x + rect.width > window.innerWidth - 8) x = e.clientX - rect.width - pad;
+    if (y + rect.height > window.innerHeight - 8) y = e.clientY - rect.height - pad;
+    tooltipEl.style.left = x + 'px';
+    tooltipEl.style.top = y + 'px';
+  }
+});
+
+/* ---------------------------------------------------------------------------
+ * Toolbar / view-mode wiring
+ * ------------------------------------------------------------------------ */
 document.getElementById('view-mode').addEventListener('change', (e) => {
   currentMode = e.target.value;
   if (currentMode !== 'ego') currentFocus = null;
+  if (activeTour) { activeTour = null; }  // leaving ego cancels the tour
   rebuild();
 });
 document.getElementById('filter-show-unprofiled').addEventListener('change', () => rebuild());
@@ -490,9 +1255,204 @@ degSlider.addEventListener('input', () => { degVal.textContent = degSlider.value
 degSlider.addEventListener('change', () => rebuild());
 
 document.getElementById('btn-fit').addEventListener('click', () => cy.fit(null, 40));
-document.getElementById('btn-relayout').addEventListener('click', () => rebuild());
+document.getElementById('btn-relayout').addEventListener('click', () => rebuild(true, true));
 
-rebuild();
+document.getElementById('btn-lucky').addEventListener('click', () => {
+  // Weighted random over profiled artists, weight = inDeg + outDeg + 1.
+  const profiled = NETWORK_DATA.nodes.filter(n => n.profiled);
+  let total = 0;
+  for (const n of profiled) total += (n.inDeg + n.outDeg + 1);
+  let r = Math.random() * total;
+  for (const n of profiled) {
+    r -= (n.inDeg + n.outDeg + 1);
+    if (r <= 0) {
+      currentFocus = n.id;
+      currentMode = 'ego';
+      document.getElementById('view-mode').value = 'ego';
+      rebuild();
+      setTimeout(() => selectArtist(n.id, { skipCenter: false }), 250);
+      showToast(`Lucky pick: ${n.id}`);
+      return;
+    }
+  }
+});
+
+document.getElementById('btn-copy').addEventListener('click', async () => {
+  pushUrlState();
+  const url = window.location.href;
+  try {
+    await navigator.clipboard.writeText(url);
+    showToast('Link copied to clipboard');
+  } catch (e) {
+    // Fallback: select the URL in a prompt.
+    window.prompt('Copy this link:', url);
+  }
+});
+
+/* ---------------------------------------------------------------------------
+ * Cytoscape selection events
+ * ------------------------------------------------------------------------ */
+cy.on('tap', 'node', (evt) => {
+  selectArtist(evt.target.id());
+});
+
+cy.on('dbltap', 'node', (evt) => {
+  const id = evt.target.id();
+  currentFocus = id;
+  currentMode = 'ego';
+  document.getElementById('view-mode').value = 'ego';
+  if (activeTour) activeTour = null;
+  rebuild();
+  setTimeout(() => selectArtist(id, { skipCenter: true }), 250);
+});
+
+cy.on('tap', (evt) => {
+  if (evt.target === cy) {
+    clearHighlight();
+    if (!activeTour) showEmptyDetails();
+  }
+});
+
+/* ---------------------------------------------------------------------------
+ * Toast
+ * ------------------------------------------------------------------------ */
+let toastTimer = null;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+/* ---------------------------------------------------------------------------
+ * URL state
+ *
+ *   #mode=profiled|all|ego
+ *   &focus=Artist%20Name           (only if ego)
+ *   &sel=Artist%20Name             (currently selected)
+ *   &deg=N&unprof=0|1
+ * ------------------------------------------------------------------------ */
+function pushUrlState() {
+  const params = new URLSearchParams();
+  params.set('mode', currentMode);
+  if (currentMode === 'ego' && currentFocus) params.set('focus', currentFocus);
+  if (selectedId) params.set('sel', selectedId);
+  const deg = parseInt(document.getElementById('deg-filter').value, 10);
+  if (deg > 0) params.set('deg', String(deg));
+  if (!document.getElementById('filter-show-unprofiled').checked) params.set('unprof', '0');
+  const newHash = '#' + params.toString();
+  if (window.location.hash !== newHash) {
+    history.replaceState(null, '', newHash);
+  }
+}
+
+function loadFromHash() {
+  const raw = window.location.hash.replace(/^#/, '');
+  if (!raw) return;
+  const params = new URLSearchParams(raw);
+  const mode = params.get('mode');
+  if (mode && ['profiled', 'all', 'ego'].includes(mode)) {
+    currentMode = mode;
+    document.getElementById('view-mode').value = mode;
+  }
+  if (params.has('focus')) currentFocus = params.get('focus');
+  if (params.has('deg')) {
+    const d = parseInt(params.get('deg'), 10);
+    if (!Number.isNaN(d)) {
+      document.getElementById('deg-filter').value = String(d);
+      document.getElementById('deg-val').textContent = String(d);
+    }
+  }
+  if (params.get('unprof') === '0') {
+    document.getElementById('filter-show-unprofiled').checked = false;
+  }
+  pendingSelection = params.get('sel') || null;
+}
+
+let pendingSelection = null;
+
+/* ---------------------------------------------------------------------------
+ * Keyboard shortcuts
+ *
+ *   /          focus search
+ *   j / k      next / prev search result
+ *   Enter      select active search result
+ *   Esc        clear search OR exit ego mode OR clear path
+ * ------------------------------------------------------------------------ */
+document.addEventListener('keydown', (e) => {
+  // Don't steal keys from inputs.
+  const tag = (e.target.tagName || '').toLowerCase();
+  const inField = tag === 'input' || tag === 'textarea' || tag === 'select';
+
+  if (e.key === 'Escape') {
+    if (inField && e.target === searchInput) {
+      searchInput.blur();
+      searchInput.value = '';
+      runSearch('');
+      e.preventDefault();
+      return;
+    }
+    if (pathState) { clearPathOverlay(); if (selectedId) renderDetails(selectedId); e.preventDefault(); return; }
+    if (currentMode === 'ego') {
+      currentMode = 'profiled';
+      currentFocus = null;
+      document.getElementById('view-mode').value = 'profiled';
+      if (activeTour) activeTour = null;
+      rebuild();
+      e.preventDefault();
+      return;
+    }
+    if (selectedId) { showEmptyDetails(); e.preventDefault(); return; }
+  }
+
+  if (inField) return;
+
+  if (e.key === '/') {
+    searchInput.focus();
+    searchInput.select();
+    e.preventDefault();
+    return;
+  }
+  if (e.key === 'j' || e.key === 'ArrowDown') {
+    if (searchMatches.length) {
+      searchActiveIdx = (searchActiveIdx + 1) % searchMatches.length;
+      renderSearchResults();
+      e.preventDefault();
+    }
+  }
+  if (e.key === 'k' || e.key === 'ArrowUp') {
+    if (searchMatches.length) {
+      searchActiveIdx = (searchActiveIdx - 1 + searchMatches.length) % searchMatches.length;
+      renderSearchResults();
+      e.preventDefault();
+    }
+  }
+  if (e.key === 'Enter') {
+    if (searchMatches.length && searchActiveIdx >= 0) {
+      const m = searchMatches[searchActiveIdx];
+      selectArtist(m.id);
+      searchInput.blur();
+      e.preventDefault();
+    }
+  }
+});
+
+/* ---------------------------------------------------------------------------
+ * Boot
+ * ------------------------------------------------------------------------ */
+loadFromHash();
+rebuild(false, true);  // first build: full layout, no animation
+
+// After the first layout completes, restore any pending selection.
+const bootHandler = () => {
+  if (pendingSelection) {
+    const id = pendingSelection;
+    pendingSelection = null;
+    selectArtist(id, { skipCenter: true });
+  }
+};
+cy.one('layoutstop', bootHandler);
 </script>
 </body>
 </html>
